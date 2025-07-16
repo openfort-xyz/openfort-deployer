@@ -18,7 +18,6 @@ export async function deployThroughProxy(
     value,
   });
 
-  /* wait until byte-code appears */
   for (let i = 0; i < 12; i++) {
     const code = await client.getBytecode({ address: predicted });
     if (code !== '0x') return predicted;

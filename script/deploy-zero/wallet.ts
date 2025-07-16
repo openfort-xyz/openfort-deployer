@@ -1,13 +1,10 @@
 import { readFileSync } from 'fs';
 import { createInterface } from 'readline';
-import {
-  createWalletClient,
-  publicActions,
-} from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
+import { createWalletClient, publicActions, type Chain } from 'viem';
+import { privateKeyToAccount, type PrivateKeyAccount } from 'viem/accounts';
 import { http } from 'viem';
-import { sepolia } from 'viem/chains';
 import { decrypt, type IKeystore } from '@chainsafe/bls-keystore';
+import type { ChainConfig } from './utils/chains';
 import 'dotenv/config';
 
 export async function hiddenPrompt(label: string): Promise<string> {
@@ -23,24 +20,33 @@ export async function hiddenPrompt(label: string): Promise<string> {
   );
 }
 
-export async function getWalletClient() {
-  const keystore = JSON.parse(
-    readFileSync('script/data/keystore.json', 'utf8'),
-  ) as IKeystore;
+let cachedAccount: PrivateKeyAccount | undefined;
 
+export async function unlockAccount() {
+  if (cachedAccount) return cachedAccount;
+  const keystore = JSON.parse(readFileSync('script/data/keystore.json', 'utf8')) as IKeystore;
   const pwd = await hiddenPrompt('Enter password to decrypt keystore:');
+  const priv = (`0x${Buffer.from(await decrypt(keystore, pwd)).toString('hex')}`) as `0x${string}`;
+  cachedAccount = privateKeyToAccount(priv);
+  return cachedAccount;
+}
 
-  const priv = (`0x${Buffer.from(await decrypt(keystore, pwd)).toString(
-    'hex',
-  )}`) as `0x${string}`;
+function toViemChain(c: ChainConfig): Chain {
+  return {
+    id: c.id,
+    name: c.name,
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    rpcUrls: { default: { http: [c.rpc] }, public: { http: [c.rpc] } },
+  } as Chain;
+}
 
-  const account = privateKeyToAccount(priv);
-
+export function getWalletClientForChain(account: PrivateKeyAccount, chainConf: ChainConfig) {
+  const chain = toViemChain(chainConf);
   return createWalletClient({
     account,
-    chain: sepolia,
-    transport: http(process.env.RPC_URL),
+    chain,
+    transport: http(chainConf.rpc),
   }).extend(publicActions);
 }
 
-export type Wallet = Awaited<ReturnType<typeof getWalletClient>>;
+export type Wallet = ReturnType<typeof getWalletClientForChain>;
