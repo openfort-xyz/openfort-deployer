@@ -1,10 +1,15 @@
 sh getByteCode.sh --path src/  
 
-npx ts-node script/deploy-zero/index.ts
-
-npx ts-node script/deploy-zero/verify-multi.ts \
-  --address 0xe8414d294af1536577728938aE1BCf22C6DC3728 \
-  --path src/Account.sol:MinimalAccount
+npx ts-node script/deploy-zero/index.ts \
   --sepolia \
   --base_sepolia \
-  --optimism_sepolia
+  --optimism_sepolia \
+  --arbitrum_sepolia
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x4AdfA83490bb996ea630017ad346957cB0a1a216 \
+  --path src/AccountV5.sol:MinimalAccountV5 \
+  --sepolia \
+  --base_sepolia \
+  --optimism_sepolia \
+  --arbitrum_sepolia

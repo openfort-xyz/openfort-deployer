@@ -6,6 +6,7 @@ import type { Address } from 'viem';
 import type { ChainConfig } from './utils/chains';
 
 const execPromise = util.promisify(exec);
+const DELAY_MS = Number(process.env.VERIFY_DELAY_MS ?? '20000');
 
 async function checkForgeAvailability() {
   try {
@@ -67,24 +68,28 @@ export const verifyContracts = async (
   await checkForgeAvailability();
   const spinner = ora().start('Verifying contracts...');
   let anyError = false;
-  const verificationPromises = chains.map((chain) =>
-    verifyContract(contractName, contractAddress, chain, ctorArgsHex)
-      .then((message) => {
-        if (message.includes('is already verified')) {
-          ora().warn(message).start().stop();
-        } else if (message.startsWith('Error verifying')) {
-          ora().fail(message).start().stop();
-          anyError = true;
-        } else {
-          ora().succeed(message).start().stop();
-        }
-      })
-      .catch((error: any) => {
-        anyError = true;
-        ora().fail(`Verification failed on ${chain.name}: ${error?.message ?? error}`).start().stop();
-      }),
-  );
-  await Promise.all(verificationPromises);
+  for (let i = 0; i < chains.length; i++) {
+    const chain = chains[i];
+    let message: string;
+    try {
+      message = await verifyContract(contractName, contractAddress, chain, ctorArgsHex);
+    } catch (error: any) {
+      message = `Error verifying contract ${contractName} at ${contractAddress} on ${chain.name}: ${error?.message ?? error}`;
+    }
+    if (message.includes('is already verified')) {
+      ora().warn(message).start().stop();
+    } else if (message.startsWith('Error verifying')) {
+      ora().fail(message).start().stop();
+      anyError = true;
+    } else {
+      ora().succeed(message).start().stop();
+    }
+    if (i < chains.length - 1 && DELAY_MS > 0) {
+      spinner.text = `Waiting ${Math.round(DELAY_MS / 1000)}s...`;
+      await new Promise((r) => setTimeout(r, DELAY_MS));
+      spinner.text = 'Verifying contracts...';
+    }
+  }
   spinner.stop();
   if (anyError) {
     console.log('❌ Some verifications failed!');
