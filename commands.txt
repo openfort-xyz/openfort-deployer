@@ -1,0 +1,7 @@
+sh getByteCode.sh --path src/  
+
+npx ts-node script/deploy-zero/index.ts
+
+npx ts-node script/deploy-zero/verify-sepolia.ts \
+  --address 0x4A909706b6478e1d954D954fe34B7D4ceCEA35A8 \
+  --path src/AccountV2.sol:MinimalAccountV2
