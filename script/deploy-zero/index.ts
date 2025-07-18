@@ -5,11 +5,12 @@ import type { Hex } from 'viem';
 import { padHex, formatEther } from 'viem';
 import { unlockAccount, getWalletClientForChain } from './wallet';
 import { CHAINS_BY_FLAG, type ChainConfig } from './utils/chains';
-import { ENTRYPOINT_V8, IMPLEMENTATION, INITIAL_GUARDIAN } from './data/addresses';
+import { ENTRYPOINT_V6, ENTRYPOINT_V8, IMPLEMENTATION, INITIAL_GUARDIAN } from './data/addresses';
 import { envBigInt } from './utils/envBigInt';
 import { buildMinimalAccountInitCode } from './initCode';
 import { computeCreate2Address } from './create2';
 import { deployThroughProxy } from './deploy';
+import { buildPaymasterV6InitCode } from './initCodePaymasterV6';
 
 function parseNetworks(): ChainConfig[] {
   const out: ChainConfig[] = [];
@@ -41,21 +42,30 @@ async function main() {
     console.log(`signer  ${client.account.address}`);
     console.log(`balance ${formatEther(bal)} ETH`);
 
-    const initCode = buildMinimalAccountInitCode(
+    // const initCode = buildMinimalAccountInitCode(
+    //   client.account.address,
+    //   ENTRYPOINT_V8,
+    //   IMPLEMENTATION,
+    //   RECOVERY,
+    //   SECURITY,
+    //   WINDOW,
+    //   LOCK,
+    //   INITIAL_GUARDIAN,
+    // );
+    const initCode = buildPaymasterV6InitCode(
+      ENTRYPOINT_V6,
       client.account.address,
-      ENTRYPOINT_V8,
-      IMPLEMENTATION,
-      RECOVERY,
-      SECURITY,
-      WINDOW,
-      LOCK,
-      INITIAL_GUARDIAN,
     );
+
     const predicted = computeCreate2Address(initCode, SALT);
     console.log(`predicted ${predicted}`);
 
-    const deployed = await deployThroughProxy(client, initCode, SALT);
-    console.log(`deployed  ${deployed}`);
+    const { deployed, flag } = await deployThroughProxy(client, initCode, SALT);
+    if (flag) {
+      console.log(`deployed  ${deployed}`);
+    } else {
+      console.log("Contract Already Deployed:", deployed);
+    }
   }
 }
 main().catch((e) => {

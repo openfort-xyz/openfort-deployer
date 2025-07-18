@@ -7,8 +7,8 @@ npx ts-node script/deploy-zero/index.ts \
   --arbitrum_sepolia
 
 npx ts-node script/deploy-zero/verify-multi.ts \
-  --address 0x07d33eC248065d5866bD1A863b1fc49F139b3033 \
-  --path src/AccountV6.sol:MinimalAccountV6 \
+  --address 0xcec8020cff71e565DA2b9F3506533d163326A7AD \
+  --path src/OpenfortPaymasterV2/contracts/paymaster/OpenfortPaymasterV2.sol:OpenfortPaymasterV2 \
   --sepolia \
   --base_sepolia \
   --optimism_sepolia \
