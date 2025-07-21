@@ -38,6 +38,7 @@ import { CREATE2_PROXY, INITIAL_GUARDIAN, ENTRYPOINT_V8, IMPLEMENTATION } from '
 import { abi_paymasterV2 } from '../script/deploy-free-gas/data/abiPaymasterV2'
 import { buildMinimalAccountInitCode } from '../script/deploy-zero/initCode'
 import { envBigInt } from '../script/deploy-zero/utils/envBigInt'
+import { log } from 'console'
 /* ---------- env ---------- */
 
 const { OWNER_PK, PAYMASTER_PK, PIMLICO_API } = process.env as Record<
@@ -162,6 +163,7 @@ async function main() {
   })
   const smartAccountAddress = await simpleAccount.getAddress()
 
+  console.log(smartAccountAddress)
   const smartAccountClient = createSmartAccountClient({
     account: simpleAccount,
     chain: sepolia,
