@@ -1,8 +1,8 @@
-import ora from 'ora';
-import chalk from 'chalk';
-import util from 'node:util';
-import type { Address } from 'viem';
 import { exec } from 'node:child_process';
+import util from 'node:util';
+import chalk from 'chalk';
+import ora from 'ora';
+import type { Address } from 'viem';
 import type { ChainConfig } from './utils/chains';
 
 const execPromise = util.promisify(exec);
