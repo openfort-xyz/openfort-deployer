@@ -6,7 +6,7 @@ import { padHex, formatEther } from 'viem';
 import { envBigInt } from './utils/envBigInt';
 import { deployThroughProxy } from './utils/deploy';
 import { computeCreate2Address } from './utils/create2';
-import { ContractsToDeploy, ContractToDeploy } from './data/ContractsByteCode';
+import { ContractsToDeploy, ContractToDeploy } from './utils/ContractsByteCode';
 import { buildMinimalAccountInitCode } from './utils/initCode';
 import { unlockAccount, getWalletClientForChain } from './wallet';
 import { CHAINS_BY_FLAG, type ChainConfig } from './utils/chains';

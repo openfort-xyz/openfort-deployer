@@ -1,4 +1,4 @@
-import { PaymasterV6ByteCode } from '../data/ContractsByteCode';
+import { ContractsToDeploy } from '../utils/ContractsByteCode';
 import { encodeAbiParameters, concatHex, type Hex } from 'viem';
 
 export function buildPaymasterV6InitCode(
@@ -15,5 +15,5 @@ export function buildPaymasterV6InitCode(
       owner,
     ],
   ) as Hex;
-  return concatHex([PaymasterV6ByteCode, args]) as Hex;
+  return concatHex([ContractsToDeploy.PaymasterV6.creationByteCode, args]) as Hex;
 }

@@ -2,9 +2,8 @@ import chalk from 'chalk'
 import type { Wallet } from '../wallet';
 import { concatHex, type Hex } from 'viem';
 import { CREATE2_PROXY } from '../data/addresses';
-import { computeCreate2Address } from './create2';
 import { getExplorerUrl } from '../data/explorerUrl';
-import { ContractToDeploy } from '../data/ContractsByteCode';
+import { ContractToDeploy } from '../utils/ContractsByteCode';
 
 export interface DeployResult {
   deployed: Hex;
