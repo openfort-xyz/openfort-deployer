@@ -1,4 +1,4 @@
-import { CREATE2_PROXY } from './data/addresses'
+import { CREATE2_PROXY } from '../data/addresses'
 import { getContractAddress, type Hex } from 'viem';
 
 export function computeCreate2Address(

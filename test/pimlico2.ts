@@ -36,7 +36,7 @@ import { EstimateUserOperationGasReturnType } from 'viem/account-abstraction'
 
 import { CREATE2_PROXY, INITIAL_GUARDIAN, ENTRYPOINT_V8, IMPLEMENTATION } from '../script/deploy-free-gas/data/addresses'
 import { abi_paymasterV2 } from '../script/deploy-free-gas/data/abiPaymasterV2'
-import { buildMinimalAccountInitCode } from '../script/deploy-zero/initCode'
+import { buildMinimalAccountInitCode } from '../script/deploy-zero/utils/initCode'
 import { envBigInt } from '../script/deploy-zero/utils/envBigInt'
 import { log } from 'console'
 /* ---------- env ---------- */

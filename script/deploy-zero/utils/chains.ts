@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-const rpcData = require('./RPC.json');
+const rpcData = require('../data/RPC.json');
 
 interface RpcUrls {
   mainet: string;

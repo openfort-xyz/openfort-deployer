@@ -1,10 +1,11 @@
+import chalk from 'chalk'
+import { http } from 'viem';
 import { readFileSync } from 'fs';
 import { createInterface } from 'readline';
+import type { ChainConfig } from './utils/chains';
+import { decrypt, type IKeystore } from '@chainsafe/bls-keystore';
 import { createWalletClient, publicActions, type Chain } from 'viem';
 import { privateKeyToAccount, type PrivateKeyAccount } from 'viem/accounts';
-import { http } from 'viem';
-import { decrypt, type IKeystore } from '@chainsafe/bls-keystore';
-import type { ChainConfig } from './utils/chains';
 import 'dotenv/config';
 
 export async function hiddenPrompt(label: string): Promise<string> {
@@ -24,7 +25,8 @@ let cachedAccount: PrivateKeyAccount | undefined;
 
 export async function unlockAccount() {
   if (cachedAccount) return cachedAccount;
-  const keystore = JSON.parse(readFileSync('script/data/keystore.json', 'utf8')) as IKeystore;
+  console.log(chalk.bgYellow(`Unlock EOA Account`))
+  const keystore = JSON.parse(readFileSync('./script/deploy-zero/keystore/paymaster.json', 'utf8')) as IKeystore;
   const pwd = await hiddenPrompt('Enter password to decrypt keystore:');
   const priv = (`0x${Buffer.from(await decrypt(keystore, pwd)).toString('hex')}`) as `0x${string}`;
   cachedAccount = privateKeyToAccount(priv);

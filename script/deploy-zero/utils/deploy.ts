@@ -1,7 +1,9 @@
-import type { Wallet } from './wallet';
+import chalk from 'chalk'
+import type { Wallet } from '../wallet';
 import { concatHex, type Hex } from 'viem';
+import { CREATE2_PROXY } from '../data/addresses';
 import { computeCreate2Address } from './create2';
-import { CREATE2_PROXY } from './data/addresses';
+import { getExplorerUrl } from '../data/explorerUrl';
 
 export interface DeployResult {
   deployed: Hex;
@@ -33,7 +35,8 @@ export async function deployThroughProxy(
   });
 
   try {
-    await client.waitForTransactionReceipt({ hash: txHash });
+    const receipt  = await client.waitForTransactionReceipt({ hash: txHash });
+    console.log(chalk.green(`Transaction Receipt: ${getExplorerUrl(client.chain.name, receipt.transactionHash)}`))
   } catch {}
 
   for (let i = 0; i < 12; i++) {

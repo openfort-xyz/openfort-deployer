@@ -1,11 +1,12 @@
 #!/usr/bin/env ts-node
-import 'dotenv/config';
 import { argv, exit } from 'node:process';
 import type { Address, Hex } from 'viem';
 import { encodeAbiParameters } from 'viem';
 import { verifyContracts } from './verifier-lib';
-import { CHAINS_BY_FLAG, type ChainConfig } from './utils/chains';
 import { ENTRYPOINT_V6 } from './data/addresses';
+import { CHAINS_BY_FLAG, type ChainConfig } from './utils/chains';
+
+import 'dotenv/config';
 
 function getArg(flag: string): string | undefined {
   const i = argv.indexOf(flag);
