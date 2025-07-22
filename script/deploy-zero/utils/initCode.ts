@@ -1,5 +1,4 @@
 import { encodeAbiParameters, concatHex, type Hex } from 'viem';
-import { MinimalAccountV2ByteCode } from '../data/ContractsByteCode';
 
 export function buildMinimalAccountInitCode(
   owner: Hex,
@@ -10,6 +9,7 @@ export function buildMinimalAccountInitCode(
   securityWindow: bigint,
   lockPeriod: bigint,
   guardian: Hex,
+  creationCode: Hex
 ): Hex {
   const args = encodeAbiParameters(
     [
@@ -34,5 +34,5 @@ export function buildMinimalAccountInitCode(
     ],
   ) as Hex;
 
-  return concatHex([MinimalAccountV2ByteCode, args]) as Hex;
+  return concatHex([creationCode, args]) as Hex;
 }
