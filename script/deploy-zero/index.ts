@@ -6,7 +6,7 @@ import { padHex, formatEther } from 'viem';
 import { envBigInt } from './utils/envBigInt';
 import { deployThroughProxy } from './utils/deploy';
 import { computeCreate2Address } from './utils/create2';
-import { ContractsToDeploy } from './data/ContractsByteCode';
+import { ContractsToDeploy, ContractToDeploy } from './data/ContractsByteCode';
 import { buildMinimalAccountInitCode } from './utils/initCode';
 import { unlockAccount, getWalletClientForChain } from './wallet';
 import { CHAINS_BY_FLAG, type ChainConfig } from './utils/chains';
@@ -32,7 +32,6 @@ const RECOVERY = envBigInt('RECOVERY');
 const SECURITY = envBigInt('SECURITY');
 const WINDOW = envBigInt('WINDOW');
 const LOCK = envBigInt('LOCK');
-const SALT = padHex(process.env.FACTORY_V6_SALT as Hex, { size: 32 }) as Hex;
 
 async function main() {
   const nets = parseNetworks();
@@ -46,28 +45,41 @@ async function main() {
     console.log(chalk.green(`balance ${formatEther(bal)} ETH`));
     console.log(chalk.green(`===================================================================\n`));
 
-    const initCode = buildMinimalAccountInitCode(
-      client.account.address,
-      ENTRYPOINT_V8,
-      IMPLEMENTATION,
-      RECOVERY,
-      SECURITY,
-      WINDOW,
-      LOCK,
-      INITIAL_GUARDIAN,
-      ContractsToDeploy.MinimalAccountV2.creationByteCode
-    );
+    const contract: ContractToDeploy = ContractsToDeploy.MinimalAccountV2;
+
+    let predicted: Hex;
+    let initCode: Hex;
+
+    if (!contract.isExist) {
+        initCode = buildMinimalAccountInitCode(
+        client.account.address,
+        ENTRYPOINT_V8,
+        IMPLEMENTATION,
+        RECOVERY,
+        SECURITY,
+        WINDOW,
+        LOCK,
+        INITIAL_GUARDIAN,
+        contract.creationByteCode
+      );
+
+      predicted = computeCreate2Address(initCode, contract.salt as Hex);
+      contract.address = predicted;
+
+    } else {
+      initCode = contract.creationByteCode;
+      predicted = contract.address;
+    }
     
     // const initCode = buildPaymasterV6InitCode( 
     //   ENTRYPOINT_V6,
     //   client.account.address,
     // );
 
-    const predicted = computeCreate2Address(initCode, ContractsToDeploy.MinimalAccountV2.salt as Hex);
     console.log(chalk.yellow(`Predicted Address of Contract: ${predicted}`));
     console.log(chalk.green(`===================================================================\n`));
 
-    const { deployed, flag } = await deployThroughProxy(client, initCode, ContractsToDeploy.MinimalAccountV2.salt as Hex);
+    const { deployed, flag } = await deployThroughProxy(client, contract, initCode);
     if (flag) {
       console.log(chalk.bgGreen(`Contract Deployed: ${deployed}`));
     } else {

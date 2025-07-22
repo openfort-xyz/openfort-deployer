@@ -14,3 +14,9 @@ npx ts-node script/deploy-zero/verify-multi.ts \
   --optimism_sepolia \
   --arbitrum_sepolia \
   --constructor $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x32080A4dcf6F164E3d0f0C33187c44443B67C919 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x51032c841E823BB487C33c9f1773B18C8d0E5209 \
+  --path src/OpenfortPaymasterV2/contracts/paymaster/OpenfortPaymasterV2.sol:OpenfortPaymasterV2 \
+  --sepolia \
+  --constructor 0x0000000000000000000000005ff137d4b0fdcd49dca30c7cf57e578a026d2789000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
