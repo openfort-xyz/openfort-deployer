@@ -4,6 +4,7 @@ import { concatHex, type Hex } from 'viem';
 import { CREATE2_PROXY } from '../data/addresses';
 import { computeCreate2Address } from './create2';
 import { getExplorerUrl } from '../data/explorerUrl';
+import { ContractToDeploy } from '../data/ContractsByteCode';
 
 export interface DeployResult {
   deployed: Hex;
@@ -18,19 +19,25 @@ function hasCode(code: Hex | undefined): boolean {
 
 export async function deployThroughProxy(
   client: Wallet,
+  contract: ContractToDeploy,
   initCode: Hex,
-  salt: Hex,
   value: bigint = 0n,
 ): Promise<DeployResult> {
-  const predicted = computeCreate2Address(initCode, salt);
 
-  const before = await client.getCode({ address: predicted });
-  if (hasCode(before)) return { deployed: predicted, flag: 0 };
+  let data: Hex;
+  if (!contract.isExist) {
+    const before = await client.getCode({ address: contract.address as Hex });
+    if (hasCode(before)) return { deployed: contract.address as Hex, flag: 0 };
+
+    data = concatHex([contract.salt as Hex, initCode]);
+  } else {
+    data = initCode;
+  }
 
   const txHash = await client.sendTransaction({
     account: client.account,
     to: CREATE2_PROXY,
-    data: concatHex([salt, initCode]),
+    data: data,
     value,
   });
 
@@ -40,10 +47,10 @@ export async function deployThroughProxy(
   } catch {}
 
   for (let i = 0; i < 12; i++) {
-    const code = await client.getCode({ address: predicted });
-    if (hasCode(code)) return { deployed: predicted, flag: 1 };
+    const code = await client.getCode({ address: contract.address as Hex });
+    if (hasCode(code)) return { deployed: contract.address as Hex, flag: 1 };
     await new Promise((r) => setTimeout(r, 5000));
   }
 
-  throw new Error(`deployment produced empty byte-code at ${predicted} (tx ${txHash})`);
+  throw new Error(`deployment produced empty byte-code at ${contract.address} (tx ${txHash})`);
 }

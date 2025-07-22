@@ -40,258 +40,46 @@ EOF
     echo "\033[0m"  # Reset color
 }
 
-encrypt_private_key(){
-    echo ""
-    echo ""
-    echo ""
-    echo  "\033[31m"  # Red color
-    printf "%*s\n" 95 "=============================="
-    printf "%*s\n" 94 "ERC-2335: BLS12-381 Keystore"
-    printf "%*s\n" 95 "=============================="
-    echo  "\033[0m"  # Reset color
-    echo ""
-    printf "%*s\n" 105 "A keystore is a mechanism for storing private keys"
-    printf "%*s\n" 108 "It is a JSON file that encrypts a private key and is the"
-    printf "%*s\n" 108 "standard for interchanging keys between devices as until"
-    printf "%*s\n" 105 " a user provides their password, their key is safe."
-    echo ""
-    echo ""
-    
-    # Menu options
-    printf "1. Use with existing Keystore 🔐"
-    echo ""
-    printf "2. Import Private Key to Keystore 🔑"
-    echo ""
-    printf "3. Back to Main Menu"
-    echo ""
-    echo ""
-    printf "Select an option (1-3): "
-    read keystore_choice
-    
-    case $keystore_choice in
-        1)
-            echo ""
-            echo  "\033[32m"  # Green color
-            printf "Available Keystores:"
-            echo  "\033[0m"  # Reset color
-            echo ""
-            
-            # Show existing keystores
-            cast wallet list
-            
-            echo ""
-            printf "Enter Keystore Name: "
-            read KEY
-            
-            if [[ -n "$KEY" ]]; then
-                echo ""
-                printf "Selected Keystore: $KEY "
-                echo ""
-                main_menu
-            else
-                echo "No keystore name entered. Please try again."
-                encrypt_private_key
-                return
-            fi
-            ;;
-        2)
-            echo ""
-            echo  "\033[32m"  # Green color
-            printf "🔑 Paste Here Your Private Key 🔑"
-            echo  "\033[0m"  # Reset color
-            echo ""
-            
-            make encrypt-key
-            
-            echo ""
-            printf "Enter Keystore Name: "
-            read KEY
-            
-            if [[ -n "$KEY" ]]; then
-                echo ""
-                printf "Keystore Name: $KEY"
-                echo ""
-                main_menu
-            else
-                echo "No keystore name entered. Please try again."
-                encrypt_private_key
-                return
-            fi
-            ;;
-        3)
-            main_menu
-            ;;
-        *)
-            echo "Invalid option. Please try again."
-            encrypt_private_key
-            return
-            ;;
-    esac
-}
-
-choose_rpc() {
-    local RPC_FILE="script/data/RPC.json"
-    
-    echo  "\033[32m"
-    echo ""
-    echo "=============================="
-    echo "        RPC Selection"
-    echo "=============================="
-    echo  "\033[0m"
-    echo "1. Choose from RPC List"
-    echo "2. Insert Your Custom RPC"
-    echo "3. Back to Main Menu"
-    echo  "\033[33m"
-    echo "Select an option (1-3): "
-    echo  "\033[0m"
-    read main_choice
-
-    case $main_choice in
-        1)
-            echo ""
-            echo  "\033[32m"
-            echo "=============================="
-            echo "      Available RPCs"
-            echo "=============================="
-            echo " Available RPC from Chainlist"
-            echo "  Check script/data/RPC.json"
-            echo  "\033[0m"
-            
-            # Read and display RPCs from JSON file
-            local counter=1
-            local rpc_names=()
-            local rpc_urls=()
-            
-            # Parse JSON file and create arrays
-            while IFS= read -r line; do
-                if [[ $line =~ \"([^\"]+)\":[[:space:]]*\"([^\"]+)\" ]]; then
-                    rpc_names+=("${BASH_REMATCH[1]}")
-                    rpc_urls+=("${BASH_REMATCH[2]}")
-                    printf "%2d. %s\n" $counter "${BASH_REMATCH[1]}"
-                    ((counter++))
-                fi
-            done < "$RPC_FILE"
-            
-            echo ""
-            echo  "\033[33m"
-            echo "Select RPC (1-$((counter-1))): "
-            echo  "\033[0m"
-            read rpc_choice
-            
-            # Validate choice
-            if [[ $rpc_choice -ge 1 && $rpc_choice -le $((counter-1)) ]]; then
-                RPC="${rpc_urls[$((rpc_choice-1))]}"
-                echo ""
-                echo "Selected RPC: ${rpc_names[$((rpc_choice-1))]}"
-                echo "URL: $RPC"
-                echo ""
-                main_menu
-            else
-                echo  "\033[33m"
-                echo "Invalid choice. Please try again."
-                echo  "\033[0m"
-                choose_rpc
-                return
-            fi
-            ;;
-        2)
-            echo ""
-            echo  "\033[32m"
-            echo "=============================="
-            echo "     Custom RPC Input"
-            echo "=============================="
-            echo  "\033[0m"
-            echo  "\033[33m"
-            echo "Insert Your RPC URL https://: "
-            echo  "\033[0m"
-            read custom_rpc
-            
-            if [[ -n "$custom_rpc" ]]; then
-                RPC="$custom_rpc"
-                echo ""
-                echo "Custom RPC set: $RPC"
-                echo ""
-                main_menu
-            else
-                echo  "\033[31m"
-                echo "No RPC entered. Please try again."
-                echo  "\033[0m"
-                choose_rpc
-                return
-            fi
-            ;;
-        3)
-            main_menu
-            ;;
-        *)
-            echo  "\033[31m"
-            echo "Invalid option. Please try again."
-            echo  "\033[0m"
-            choose_rpc
-            return
-            ;;
-    esac
-}
-
-compute_address_factory_v6(){
-    echo ""
-    echo  "\033[33m"
-    echo "=============================="
-    echo "   Compute Factory V6 Address"
-    echo "=============================="
-    echo  "\033[0m"
-    echo "Please check .env and insert correct 'FACTORY_V6_SALT(byte32)'"
-    echo ""
-    echo "\033[36m"
-    echo "Press Enter to continue after filling .env file..."
-    echo "\033[0m"
-    read -p ""
-    echo ""
-    make compute-factory-v6-address
+deploy_new_chain() {
     echo ""
     echo  "\033[31m"
-    echo "if MISMATCH: Need to adjust salt or deployer -> .env"
+    echo "=================================================================="
+    echo "                    IMPORTANT NOTIFICATION"
+    echo "=================================================================="
     echo  "\033[0m"
-    echo ""
-    deploy_factory_v6_menu
-}
-
-deploy_factory_v6_action() {
-    echo ""
     echo  "\033[33m"
-    echo "Deploying Factory V6 to chain..."
+    echo "Please save/check keystores in path: script/keystore"
+    echo "with names freegas.json(EOA) and paymaster.json(Paymaster)"
     echo  "\033[0m"
-    echo "Will Be Soon"
-    echo ""
-    deploy_factory_v6_menu
-}
-
-deploy_factory_v6_menu() {
     echo ""
     echo  "\033[32m"
-    echo "=============================="
-    echo "     Deploy Factory V6"
-    echo "=============================="
+    echo "=================================================================="
+    echo "                    CONTRACT SELECTION"
+    echo "=================================================================="
     echo  "\033[0m"
-    echo "1. Compute Address with Create2"
-    echo "2. Deploy To Chain"
-    echo "3. Back to Deployment Menu"
+    echo  "\033[33m"
+    echo "Please choose Contract to Deploy from Next List:"
+    echo  "\033[0m"
+    echo ""
+    echo "1. Paymaster with EP V6"
+    echo "2. Factory V6"
+    echo "3. Implementation"
     echo "4. Back to Main Menu"
     echo ""
     echo  "\033[33m"
     echo "Select an option (1-4): "
     echo  "\033[0m"
-    read factory_choice
+    read deploy_choice
     
-    case $factory_choice in
+    case $deploy_choice in
         1)
-            compute_address_factory_v6
+            deploy_contract "MinimalAccountV2"
             ;;
         2)
-            deploy_factory_v6_action
+            deploy_contract "MinimalAccountV3"
             ;;
         3)
-            deployment
+            deploy_contract "MinimalAccountV4"
             ;;
         4)
             main_menu
@@ -300,52 +88,263 @@ deploy_factory_v6_menu() {
             echo  "\033[31m"
             echo "Invalid option. Please try again."
             echo  "\033[0m"
-            deploy_factory_v6_menu
+            deploy_new_chain
             return
             ;;
     esac
 }
 
-deployment() {
+verify_contract() {
     echo ""
-    echo  "\033[32m"
-    echo "=============================="
-    echo "      Deployment Menu"
-    echo "=============================="
+    echo  "\033[31m"
+    echo "=================================================================="
+    echo "                    IMPORTANT NOTIFICATION"
+    echo "=================================================================="
     echo  "\033[0m"
-    echo "1. Deploy Factory V6"
-    echo "2. Deploy Paymaster"
-    echo "3. Back to Main Menu"
     echo ""
     echo  "\033[33m"
-    echo "Select an option (1-3): "
+    echo "This script will verify deployed contracts."
+    echo "Please ensure all details are correct!"
+    echo ""
+    echo ""
+    echo ""
+    echo "Enter chain names where contracts were deployed (separated by spaces):"
+    echo "mainnet base optimism base_sepolia ..."
+    echo ""
+    echo ""
+    echo "Available networks can be found in: script/deploy-zero/data/RPC.json"
+    echo "Use the exact names as they appear in the file."
+    echo ""
+    echo ""
+    echo ""
+    echo  "\033[32m"
+    echo "=================================================================="
+    echo "                        CHAIN SELECTION"
+    echo "=================================================================="
     echo  "\033[0m"
-    read deploy_choice
+    echo ""
+    echo "Enter the chain name(s): "
+    echo  "\033[0m"
+    read chain_input
     
-    case $deploy_choice in
-        1)
-            deploy_factory_v6_menu
-            ;;
-        2)
-            echo ""
-            echo  "\033[33m"
-            echo "Deploying Paymaster..."
-            echo  "\033[0m"
-            echo "Will Be Soon"
-            echo ""
-            deployment
-            ;;
-        3)
-            main_menu
-            ;;
-        *)
-            echo  "\033[31m"
-            echo "Invalid option. Please try again."
-            echo  "\033[0m"
-            deployment
-            return
-            ;;
-    esac
+    if [[ -z "$chain_input" ]]; then
+        echo  "\033[31m"
+        echo "No chain name entered. Please try again."
+        echo  "\033[0m"
+        verify_contract
+        return
+    fi
+    
+    echo ""
+    echo  "\033[32m"
+    echo "=================================================================="
+    echo "                        Contract Address"
+    echo "=================================================================="
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[33m"
+    echo "Enter the contract address was deployed: "
+    echo  "\033[0m"
+    read contract_address
+    
+    if [[ -z "$contract_address" ]]; then
+        echo  "\033[31m"
+        echo "No contract address entered. Please try again."
+        echo  "\033[0m"
+        verify_contract
+        return
+    fi
+    
+    echo ""
+    echo  "\033[32m"
+    echo "=================================================================="
+    echo "                         Contract Path"
+    echo "=================================================================="
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[33m"
+    echo "Enter path to the contract to verify(<Path>:<Contract Name>): "
+    echo  "\033[0m"
+    read contract_path
+    
+    if [[ -z "$contract_path" ]]; then
+        echo  "\033[31m"
+        echo "No contract path entered. Please try again."
+        echo  "\033[0m"
+        verify_contract
+        return
+    fi
+    
+    echo ""
+    echo  "\033[32m"
+    echo "=================================================================="
+    echo "                           Constructor"
+    echo "=================================================================="
+    echo  "\033[0m"
+    echo ""    echo  "\033[33m"
+    echo "Enter constructor arguments:"
+    echo "Example: \$(cast abi-encode \"constructor(address,address,address)\" 0x32080A4dcf6F164E3d0f0C33187c44443B67C919 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab)"
+    echo  "\033[0m"
+    read constructor_args
+    
+    if [[ -z "$constructor_args" ]]; then
+        echo  "\033[31m"
+        echo "No constructor arguments entered. Please try again."
+        echo  "\033[0m"
+        verify_contract
+        return
+    fi
+    
+    local base_command="npx ts-node script/deploy-zero/verify-multi.ts"
+    local chain_flags=""
+    
+    for chain in $chain_input; do
+        chain_flags="$chain_flags --$chain"
+    done
+    
+    local final_command="$base_command --address $contract_address --path $contract_path$chain_flags --constructor \"$constructor_args\""
+    
+    echo ""
+    echo  "\033[32m"
+    echo "Executing: $final_command"
+    echo  "\033[0m"
+    
+    eval $final_command
+    
+    echo ""
+    main_menu
+}
+
+deploy_supported_chain() {
+    echo ""
+    echo  "\033[31m"
+    echo "=================================================================="
+    echo "              ⚠️⚠️  IMPORTANT NOTIFICATION ⚠️⚠️"
+    echo "=================================================================="
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[33m"
+    echo "This execution will deploy Smart Wallet Account and Contracts you set"
+    echo "in file script/deploy-free-gas/utils/ContractsByteCode.ts:"
+    echo ""
+    echo "    static getAllContracts(): ContractToDeploy[] {"
+    echo "        return ["
+    echo "            ContractsToDeploy.Name,"
+    echo "            ContractsToDeploy.Name,"
+    echo "            ..."
+    echo "        ];"
+    echo "    }"
+    echo ""
+    echo "This script executes with gas sponsoring and batch deployment."
+    echo "In one transaction it deploys all contracts that were set in 'static getAllContracts()'"
+    echo ""
+    echo "!!! Please use the same Keystore (freegas.json) for future deployments !!!"
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[32m"
+    echo "=================================================================="
+    echo "                        CHAIN SELECTION"
+    echo "=================================================================="
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[33m"
+    echo "Please insert name of the chains with space between the names:"
+    echo "mainnet base optimism base_sepolia ....."
+    echo ""
+    echo ""
+    echo "you can find available networks in script/deploy-zero/data/RPC.json"
+    echo "please use with same name in the file"
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[33m"
+    echo "Enter the chain name(s): "
+    echo  "\033[0m"
+    read chain_input
+    
+    if [[ -n "$chain_input" ]]; then
+        local base_command="npx ts-node script/deploy-free-gas/index.ts"
+        local chain_flags=""
+        
+        for chain in $chain_input; do
+            chain_flags="$chain_flags --$chain"
+        done
+        
+        local final_command="$base_command$chain_flags"
+        
+        echo ""
+        echo  "\033[32m"
+        echo "Executing: $final_command"
+        echo  "\033[0m"
+        
+        $final_command
+        
+        echo ""
+        main_menu
+    else
+        echo  "\033[31m"
+        echo "No chain name entered. Please try again."
+        echo  "\033[0m"
+        deploy_supported_chain
+        return
+    fi
+}
+
+deploy_contract() {
+    local contract_name="$1"
+    
+    echo ""
+    echo  "\033[31m"
+    echo "=================================================================="
+    echo "              ⚠️⚠️  IMPORTANT NOTIFICATION ⚠️⚠️"
+    echo "=================================================================="
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[33m"
+    echo "Please insert name of the chains with space between the names:"
+    echo "mainnet base optimism base_sepolia ....."
+    echo ""
+    echo ""
+    echo "you can find available networks in script/deploy-zero/data/RPC.json"
+    echo "please use with same name in the file"
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[32m"
+    echo "=================================================================="
+    echo "                        CHAIN SELECTION"
+    echo "=================================================================="
+    echo  "\033[0m"
+    echo ""
+    echo  "\033[33m"
+    echo "Enter the chain name(s): "
+    echo  "\033[0m"
+    read chain_input
+    
+    if [[ -n "$chain_input" ]]; then
+        local base_command="npx ts-node script/deploy-zero/index.ts $contract_name"
+        local chain_flags=""
+        
+        for chain in $chain_input; do
+            chain_flags="$chain_flags --$chain"
+        done
+        
+        local final_command="$base_command$chain_flags"
+        
+        echo ""
+        echo  "\033[32m"
+        echo "Executing: $final_command"
+        echo  "\033[0m"
+        
+        $final_command
+        
+        echo ""
+        deploy_new_chain
+    else
+        echo  "\033[31m"
+        echo "No chain name entered. Please try again."
+        echo  "\033[0m"
+        deploy_contract "$contract_name"
+        return
+    fi
 }
 
 main_menu() {
@@ -355,27 +354,37 @@ main_menu() {
     echo "         MAIN MENU"
     echo "=============================="
     echo  "\033[0m"
-    echo "1. Setup Keystore"
-    echo "2. Choose RPC"
-    echo "3. Deployment"
-    echo "4. Exit"
+    echo "1. Deploy on New Chain"
+    echo "2. Deploy on Supported Chain"
+    echo "3. Verify Contract"
+    echo "4. Show Keystores"
+    echo "5. Exit"
     echo ""
     echo  "\033[33m"
-    echo "Select an option (1-4): "
+    echo "Select an option (1-5): "
     echo  "\033[0m"
     read main_choice
     
     case $main_choice in
         1)
-            encrypt_private_key
+            deploy_new_chain
             ;;
         2)
-            choose_rpc
+            deploy_supported_chain
             ;;
         3)
-            deployment
+            verify_contract
             ;;
         4)
+            echo ""
+            echo  "\033[32m"
+            echo "Checking Keystores..."
+            echo  "\033[0m"
+            npx ts-node script/keystore/keystoreChecker.ts
+            echo ""
+            main_menu
+            ;;
+        5)
             echo ""
             echo  "\033[32m"
             echo "Thank you for using OG Deployer!"
