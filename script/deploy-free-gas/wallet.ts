@@ -34,10 +34,10 @@ export async function unlockAccount({ isAccount }: { isAccount: boolean }) {
 
   if (isAccount) {
     console.log(chalk.bgYellow(`Unlock EOA Account`))
-    keystore = JSON.parse(readFileSync('./script/deploy-free-gas/keystore/freegas.json', 'utf8')) as IKeystore;
+    keystore = JSON.parse(readFileSync('./script/keystore/freegas.json', 'utf8')) as IKeystore;
   } else {
     console.log(chalk.bgYellow(`Unlock Paymaster Account`))
-    keystore = JSON.parse(readFileSync('./script/deploy-free-gas/keystore/paymaster.json', 'utf8')) as IKeystore;
+    keystore = JSON.parse(readFileSync('./script/keystore/paymaster.json', 'utf8')) as IKeystore;
   }
 
   const pwd = await hiddenPrompt('Enter password to decrypt keystore:');

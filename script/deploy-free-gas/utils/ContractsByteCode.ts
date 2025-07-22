@@ -82,7 +82,7 @@ export class ContractsToDeploy {
     } as ContractToDeploy;
 
     static MinimalAccountV9: ContractToDeploy = 
-    {   name: 'MinimalAccountV9ByteCode',
+    {   name: 'MinimalAccountV9',
         path : 'src/AccountV9.sol',
         isExist: false,
         salt: FACTORY_V6_SALT,
@@ -100,14 +100,14 @@ export class ContractsToDeploy {
     static getAllContracts(): ContractToDeploy[] {
         return [
             // ContractsToDeploy.MinimalAccount,
-            // ContractsToDeploy.MinimalAccountV2,
-            // ContractsToDeploy.MinimalAccountV3,
+            ContractsToDeploy.MinimalAccountV2,
+            ContractsToDeploy.MinimalAccountV3,
             // ContractsToDeploy.MinimalAccountV4,
             // ContractsToDeploy.MinimalAccountV5,
             // ContractsToDeploy.MinimalAccountV6,
             // ContractsToDeploy.MinimalAccountV7,
-            ContractsToDeploy.MinimalAccountV8,
-            ContractsToDeploy.MinimalAccountV9,
+            // ContractsToDeploy.MinimalAccountV8,
+            // ContractsToDeploy.MinimalAccountV9,
             // ContractsToDeploy.PaymasterV6,
         ];
     }

@@ -20,3 +20,5 @@ npx ts-node script/deploy-zero/verify-multi.ts \
   --path src/OpenfortPaymasterV2/contracts/paymaster/OpenfortPaymasterV2.sol:OpenfortPaymasterV2 \
   --sepolia \
   --constructor 0x0000000000000000000000005ff137d4b0fdcd49dca30c7cf57e578a026d2789000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
+
+  npx ts-node script/deploy-zero/index.ts MinimalAccountV2 --sepolia --base_sepolia --optimism_sepolia --arbitrum_sepolia

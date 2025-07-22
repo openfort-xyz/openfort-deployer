@@ -26,7 +26,7 @@ let cachedAccount: PrivateKeyAccount | undefined;
 export async function unlockAccount() {
   if (cachedAccount) return cachedAccount;
   console.log(chalk.bgYellow(`Unlock EOA Account`))
-  const keystore = JSON.parse(readFileSync('./script/deploy-zero/keystore/paymaster.json', 'utf8')) as IKeystore;
+  const keystore = JSON.parse(readFileSync('./script/keystore/paymaster.json', 'utf8')) as IKeystore;
   const pwd = await hiddenPrompt('Enter password to decrypt keystore:');
   const priv = (`0x${Buffer.from(await decrypt(keystore, pwd)).toString('hex')}`) as `0x${string}`;
   cachedAccount = privateKeyToAccount(priv);
