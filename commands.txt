@@ -1,6 +1,12 @@
 sh getByteCode.sh --path src/  
 
-npx ts-node script/deploy-zero/index.ts \
+npx ts-node script/deploy-zero/index.ts MinimalAccountV2 \
+  --sepolia \
+  --base_sepolia \
+  --optimism_sepolia \
+  --arbitrum_sepolia
+
+npx ts-node script/deploy-free-gas/index.ts \
   --sepolia \
   --base_sepolia \
   --optimism_sepolia \

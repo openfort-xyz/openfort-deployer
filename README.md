@@ -275,3 +275,37 @@ export const IMPLEMENTATION: Hex        = '0x6e4a235c5f72a1054abFeb24c7eE6b48AcD
 
 export const INITIAL_GUARDIAN: Hex      = '0xbebCD8Cba50c84f999d6A8C807f261FF278161fb' as Hex;
 ```
+
+## Run:
+CLI-Tool.
+```bash
+sh OGDeployer.sh 
+```
+
+Custom command for deployment.
+```bash
+# Deploy-Zero
+npx ts-node script/deploy-zero/index.ts <Contract_Name> \
+  --sepolia \
+  --base_sepolia \
+  --optimism_sepolia \
+  --arbitrum_sepolia
+
+# Deploy Free Gas
+npx ts-node script/deploy-free-gas/index.ts \
+  --sepolia \
+  --base_sepolia \
+  --optimism_sepolia \
+  --arbitrum_sepolia
+```
+Custom command for verify.
+```bash
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address <Deployed Contract Address> \
+  --path <Deployed Contract Path> \
+  --sepolia \
+  --base_sepolia \
+  --optimism_sepolia \
+  --arbitrum_sepolia \
+  --constructor $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x32080A4dcf6F164E3d0f0C33187c44443B67C919 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb) # Example
+```
