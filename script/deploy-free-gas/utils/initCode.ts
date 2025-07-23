@@ -37,25 +37,6 @@ export function buildMinimalAccountInitCode(
   return concatHex([creationCode, args]) as Hex;
 }
 
-export function buildPaymasterV6InitCode(
-  entrypoint: Hex,
-  owner: Hex,
-  creationCode: Hex
-): Hex {
-  const args = encodeAbiParameters(
-    [
-      { type: 'address' },
-      { type: 'address' },
-    ],
-    [
-      entrypoint,
-      owner,
-    ],
-  ) as Hex;
-
-  return concatHex([creationCode, args]) as Hex;
-}
-
 export function buildFactoryV6InitCode(
   owner: Hex,
   entrypoint: Hex,
@@ -90,5 +71,22 @@ export function buildFactoryV6InitCode(
     ],
   ) as Hex;
 
+  return concatHex([creationCode, args]) as Hex;
+}
+export function buildPaymasterV2InitCode(
+  entrypoint: Hex,
+  owner: Hex,
+  creationCode: Hex
+): Hex {
+  const args = encodeAbiParameters(
+    [
+      { type: 'address' },
+      { type: 'address' }
+    ],
+    [
+      entrypoint,
+      owner,
+    ],
+  ) as Hex;
   return concatHex([creationCode, args]) as Hex;
 }

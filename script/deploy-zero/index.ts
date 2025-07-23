@@ -2,16 +2,13 @@
 import chalk from 'chalk'
 import type { Hex } from 'viem';
 import { argv, exit } from 'node:process';
-import { padHex, formatEther } from 'viem';
-import { envBigInt } from './utils/envBigInt';
+import { formatEther } from 'viem';
 import { deployThroughProxy } from './utils/deploy';
 import { computeCreate2Address } from './utils/create2';
-import { ContractsToDeploy, ContractToDeploy } from './data/ContractsByteCode';
-import { buildMinimalAccountInitCode } from './utils/initCode';
+import { ContractsToDeploy, ContractToDeploy } from './utils/ContractsByteCode';
 import { unlockAccount, getWalletClientForChain } from './wallet';
 import { CHAINS_BY_FLAG, type ChainConfig } from './utils/chains';
-import { buildPaymasterV6InitCode } from './utils/initCodePaymasterV6';
-import { ENTRYPOINT_V6, ENTRYPOINT_V8, IMPLEMENTATION, INITIAL_GUARDIAN } from './data/addresses';
+
 
 import 'dotenv/config';
 
@@ -31,11 +28,6 @@ function parseNetworks(): ChainConfig[] {
 const contractKey =
   argv.slice(2).find(a => !a.startsWith('--')) ?? 'MinimalAccountV2'
 
-const RECOVERY = envBigInt('RECOVERY');
-const SECURITY = envBigInt('SECURITY');
-const WINDOW = envBigInt('WINDOW');
-const LOCK = envBigInt('LOCK');
-
 async function main(contract_name: string) {
 
   const nets = parseNetworks();
@@ -53,19 +45,9 @@ async function main(contract_name: string) {
 
     let predicted: Hex;
     let initCode: Hex;
-
+    
     if (!contract.isExist) {
-        initCode = buildMinimalAccountInitCode(
-        client.account.address,
-        ENTRYPOINT_V8,
-        IMPLEMENTATION,
-        RECOVERY,
-        SECURITY,
-        WINDOW,
-        LOCK,
-        INITIAL_GUARDIAN,
-        contract.creationByteCode
-      );
+      initCode = ContractsToDeploy.computeInitCode(contract, client.account.address);
 
       predicted = computeCreate2Address(initCode, contract.salt as Hex);
       contract.address = predicted;
@@ -74,11 +56,6 @@ async function main(contract_name: string) {
       initCode = contract.creationByteCode;
       predicted = contract.address;
     }
-    
-    // const initCode = buildPaymasterV6InitCode( 
-    //   ENTRYPOINT_V6,
-    //   client.account.address,a
-    // );
 
     console.log(chalk.yellow(`Predicted Address of  ${contract.name} Contract: ${predicted}`));
     console.log(chalk.green(`===================================================================\n`));

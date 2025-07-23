@@ -15,7 +15,5 @@ export const PAYMASTER_TEST_TEST: Hex       = '0xcec8020cff71e565DA2b9F3506533d1
 
 export const IMPLEMENTATION: Hex            = '0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab' as Hex;
 
-export const INITIAL_GUARDIAN: Hex          = '0xbebCD8Cba50c84f999d6A8C807f261FF278161fb' as Hex;
-
 // Factory to Deploy Account in Supported Chains
 export const SIMPLE_ACCOUNT_FACTORY: Hex    = '0x9406Cc6185a346906296840746125a0E44976454' as Hex;

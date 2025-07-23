@@ -2,9 +2,8 @@ import chalk from 'chalk'
 import type { Wallet } from '../wallet';
 import { concatHex, type Hex } from 'viem';
 import { CREATE2_PROXY } from '../data/addresses';
-import { computeCreate2Address } from './create2';
 import { getExplorerUrl } from '../data/explorerUrl';
-import { ContractToDeploy } from '../data/ContractsByteCode';
+import { ContractToDeploy } from '../utils/ContractsByteCode';
 
 export interface DeployResult {
   deployed: Hex;
@@ -24,11 +23,11 @@ export async function deployThroughProxy(
   value: bigint = 0n,
 ): Promise<DeployResult> {
 
+  const before = await client.getCode({ address: contract.address as Hex });
+  if (hasCode(before)) return { deployed: contract.address as Hex, flag: 0 };
+  
   let data: Hex;
   if (!contract.isExist) {
-    const before = await client.getCode({ address: contract.address as Hex });
-    if (hasCode(before)) return { deployed: contract.address as Hex, flag: 0 };
-
     data = concatHex([contract.salt as Hex, initCode]);
   } else {
     data = initCode;
