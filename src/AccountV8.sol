@@ -83,5 +83,9 @@ contract MinimalAccountV8 {
         return lockPeriod;
     }
 
+    function getString() external pure returns (string memory) {
+        return 'OG-Deployer';
+    }
+
     receive() external payable {}
 }

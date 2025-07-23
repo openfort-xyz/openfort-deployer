@@ -73,13 +73,13 @@ deploy_new_chain() {
     
     case $deploy_choice in
         1)
-            deploy_contract "MinimalAccountV2"
+            deploy_contract "MinimalAccountV8"
             ;;
         2)
-            deploy_contract "MinimalAccountV3"
+            deploy_contract "MinimalAccountV8"
             ;;
         3)
-            deploy_contract "MinimalAccountV4"
+            deploy_contract "MinimalAccountV8"
             ;;
         4)
             main_menu

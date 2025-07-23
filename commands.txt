@@ -1,10 +1,9 @@
 sh getByteCode.sh --path src/  
 
-npx ts-node script/deploy-zero/index.ts MinimalAccountV2 \
+npx ts-node script/deploy-zero/index.ts MinimalAccountV8 \
   --sepolia \
   --base_sepolia \
   --optimism_sepolia \
-  --arbitrum_sepolia
 
 npx ts-node script/deploy-free-gas/index.ts \
   --sepolia \
@@ -13,13 +12,13 @@ npx ts-node script/deploy-free-gas/index.ts \
   --arbitrum_sepolia
 
 npx ts-node script/deploy-zero/verify-multi.ts \
-  --address 0xe42C057e573e69453a58dcfE39e2e89130575F4B \
+  --address 0xE467fA3987A000adf7F0478BAF17ca46b6769331 \
   --path src/AccountV9.sol:MinimalAccountV9 \
   --sepolia \
   --base_sepolia \
   --optimism_sepolia \
   --arbitrum_sepolia \
-  --constructor $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x32080A4dcf6F164E3d0f0C33187c44443B67C919 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)
+  --constructor $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x4337084D9E255Ff0702461CF8895CE9E3b5Ff108 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)
 
 npx ts-node script/deploy-zero/verify-multi.ts \
   --address 0x51032c841E823BB487C33c9f1773B18C8d0E5209 \
@@ -28,3 +27,5 @@ npx ts-node script/deploy-zero/verify-multi.ts \
   --constructor 0x0000000000000000000000005ff137d4b0fdcd49dca30c7cf57e578a026d2789000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
 
   npx ts-node script/deploy-zero/index.ts MinimalAccountV2 --sepolia --base_sepolia --optimism_sepolia --arbitrum_sepolia
+
+  $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x56ed253A8D2f97B2623A6aEfc1284E9B02a8a379 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)
