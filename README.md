@@ -174,6 +174,52 @@ sh getByteCode.sh --path <contract_path:contract_name>
 
 # sh getByteCode.sh --path src/AccountV6:MinimalAccountV6
 ```
+>Prepare constructor argumnets for contract:
+```ts
+≫ script/deploy-zero/utils/ContractsByteCode.ts
+≫ script/deploy-free-gas/utils/ContractsByteCode.ts
+    
+    // `case` Must be the name of the Contract -> name: 'Contract_Name', // The name of the contract in .sol
+    static computeInitCode (c: ContractToDeploy, address: Hex): Hex {
+        switch (c.name) {
+            case 'MinimalAccount':
+            return buildMinimalAccountInitCode(
+                address,
+                ENTRYPOINT_V6,
+                IMPLEMENTATION,
+                RECOVERY,
+                SECURITY,
+                WINDOW,
+                LOCK,
+                INITIAL_GUARDIAN,
+                c.creationByteCode,
+            )
+
+            case 'PaymasterV6':
+            return buildPaymasterV2InitCode(
+                ENTRYPOINT_V6,
+                address,
+                c.creationByteCode,
+            )
+
+            case 'FactoryV6':
+            return buildFactoryV6InitCode(
+                address,
+                ENTRYPOINT_V8,
+                IMPLEMENTATION,
+                RECOVERY,
+                SECURITY,
+                WINDOW,
+                LOCK,
+                INITIAL_GUARDIAN,
+                c.creationByteCode,
+            )
+
+            default:
+            return c.creationByteCode
+        }
+    }
+```
 >***Only in script/deploy-free-gas/utils/ContractsByteCode.ts***
 ```ts
 // Set contracts you want to deploy fro batch deployer
@@ -273,7 +319,6 @@ export const ENTRYPOINT_V6: Hex         = '0x5FF137D4b0FDCD49DcA30c7CF57E578a026
 
 export const IMPLEMENTATION: Hex        = '0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab' as Hex;
 
-export const INITIAL_GUARDIAN: Hex      = '0xbebCD8Cba50c84f999d6A8C807f261FF278161fb' as Hex;
 ```
 
 ## Run:

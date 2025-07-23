@@ -23,11 +23,11 @@ export async function deployThroughProxy(
   value: bigint = 0n,
 ): Promise<DeployResult> {
 
+  const before = await client.getCode({ address: contract.address as Hex });
+  if (hasCode(before)) return { deployed: contract.address as Hex, flag: 0 };
+  
   let data: Hex;
   if (!contract.isExist) {
-    const before = await client.getCode({ address: contract.address as Hex });
-    if (hasCode(before)) return { deployed: contract.address as Hex, flag: 0 };
-
     data = concatHex([contract.salt as Hex, initCode]);
   } else {
     data = initCode;

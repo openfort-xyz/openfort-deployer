@@ -1,4 +1,7 @@
-import { Address, Hex } from "viem";
+import { Hex } from "viem";
+import { envBigInt, envHex } from "./envBigInt";
+import { ENTRYPOINT_V6, ENTRYPOINT_V8, IMPLEMENTATION } from "../data/addresses";
+import { buildFactoryV6InitCode, buildMinimalAccountInitCode, buildPaymasterV2InitCode } from "./initCode";
 
 import 'dotenv/config'
 
@@ -9,12 +12,19 @@ const { FACTORY_V6_SALT } = process.env as Record<
 
 export interface ContractToDeploy {
     creationByteCode: Hex;
-    address: Address | null;
+    address: Hex;
     name: string;
     path: string | null;
     isExist: boolean | null;
     salt: Hex | null;
+    initCode: Hex | null;
 }
+
+const INITIAL_GUARDIAN = envHex('INITIAL_GUARDIAN');
+const RECOVERY = envBigInt('RECOVERY');
+const SECURITY = envBigInt('SECURITY');
+const WINDOW = envBigInt('WINDOW');
+const LOCK = envBigInt('LOCK');
 
 export class ContractsToDeploy {
     static MinimalAccount: ContractToDeploy = 
@@ -110,5 +120,53 @@ export class ContractsToDeploy {
             // ContractsToDeploy.MinimalAccountV9,
             // ContractsToDeploy.PaymasterV6,
         ];
+    }
+
+    static computeInitCode (c: ContractToDeploy, address: Hex): Hex {
+        switch (c.name) {
+            case 'MinimalAccount':
+            case 'MinimalAccountV2':
+            case 'MinimalAccountV3':
+            case 'MinimalAccountV4':
+            case 'MinimalAccountV5':
+            case 'MinimalAccountV6':
+            case 'MinimalAccountV7':
+            case 'MinimalAccountV8':
+            case 'MinimalAccountV9':
+            return buildMinimalAccountInitCode(
+                address,
+                ENTRYPOINT_V6,
+                IMPLEMENTATION,
+                RECOVERY,
+                SECURITY,
+                WINDOW,
+                LOCK,
+                INITIAL_GUARDIAN,
+                c.creationByteCode,
+            )
+
+            case 'PaymasterV6':
+            return buildPaymasterV2InitCode(
+                ENTRYPOINT_V6,
+                address,
+                c.creationByteCode,
+            )
+
+            case 'FactoryV6':
+            return buildFactoryV6InitCode(
+                address,
+                ENTRYPOINT_V8,
+                IMPLEMENTATION,
+                RECOVERY,
+                SECURITY,
+                WINDOW,
+                LOCK,
+                INITIAL_GUARDIAN,
+                c.creationByteCode,
+            )
+
+            default:
+            return c.creationByteCode
+        }
     }
 }

@@ -11,7 +11,6 @@ import {
   type Call,
   type Hex,
   type PublicClient,
-  type GetCodeReturnType,
   zeroAddress,
 } from 'viem'
 import { toSimpleSmartAccount } from 'permissionless/accounts'
@@ -28,16 +27,13 @@ import { getExplorerUrl } from './data/explorerUrl'
 import { abi_paymasterV2 } from './data/abiPaymasterV2'
 import { abi_simnple_account_factory } from './data/abiSimpleAccountFactory'
 import { ContractsToDeploy, ContractToDeploy } from './utils/ContractsByteCode'
-import { buildMinimalAccountInitCode } from './utils/initCode'
 import { computeCreate2Address } from './utils/create2'
 import { hasCode } from './utils/hasCode'
 import { envBigInt } from './utils/envBigInt'
 import {
   ENTRYPOINT_V6,
-  IMPLEMENTATION,
   PAYMASTER_TEST_TEST,
   SIMPLE_ACCOUNT_FACTORY,
-  INITIAL_GUARDIAN,
   CREATE2_PROXY,
 } from './data/addresses'
 
@@ -71,10 +67,6 @@ function encodePaymasterBlob(
     ],
     [validUntil, validAfter, strategy],
   )
-}
-
-async function buildInitCode(owner: Address, creationCode: Hex) {
-  return buildMinimalAccountInitCode(owner, ENTRYPOINT_V6, IMPLEMENTATION, rec, sec, win, lock, INITIAL_GUARDIAN, creationCode)
 }
 
 async function getUserOp(sender: Address, nonce: bigint, initCode: Hex, callData: Hex): Promise<UserOperation<'0.6'>> {
@@ -127,7 +119,7 @@ export async function deployWithPaymaster(eoa: Wallet, paymaster: Wallet, pc: Pu
   const calls: Call[] = []
 
   for (const c of contracts) {
-    const init = await buildInitCode(eoa.account.address, c.creationByteCode)
+    const init = ContractsToDeploy.computeInitCode(c, eoa.account.address);
     const target = computeCreate2Address(init, c.salt as Hex)
     c.address = target
     if (hasCode(await pc.getCode({ address: target }))) {
