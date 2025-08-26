@@ -1,0 +1,13 @@
+# ---------- Deploy PaymasterV2 ---------- #
+https://hekla.taikoscan.io/tx/0xa9ea6b1eab12bb6f04a773c0da3e2039c70fb5f24cdc1df225c09982941a7dee
+npx ts-node script/deploy-zero/index.ts RAW_PAYMASTER_V2_EP6 \
+  --taiko_alethia
+
+
+# ---------- Deploy FactoryV6 ---------- #
+https://hekla.taikoscan.io/tx/0x5294c946d080f50863fb8047b3b4c781aa8d5daff0f051bd363c71d9a0f486c8
+npx ts-node script/deploy-zero/index.ts RAW_UPGRADEABLEACCOUNT_FACTORY_V6 \
+  --taiko_alethia
+
+
+

@@ -28,3 +28,9 @@ npx ts-node script/deploy-zero/verify-multi.ts \
   npx ts-node script/deploy-zero/index.ts MinimalAccountV2 --sepolia --base_sepolia --optimism_sepolia --arbitrum_sepolia
 
   $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x56ed253A8D2f97B2623A6aEfc1284E9B02a8a379 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)
+
+  npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x327B0790ceB93E315Ec7A1b0AD8189D7A74b70BB \
+  --path src/AccountV2.sol:MinimalAccountV2 \
+  --taiko_hekla \
+  --constructor $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x56ed253A8D2f97B2623A6aEfc1284E9B02a8a379 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)

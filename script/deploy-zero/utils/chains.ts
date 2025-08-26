@@ -18,10 +18,13 @@ interface RpcUrls {
   scroll: string;
   linea: string;
   beam: string;
+  taiko_alethia: string;
+  // Testnets
   sepolia: string;
   base_sepolia: string;
   arbitrum_sepolia: string;
   optimism_sepolia: string;
+  taiko_hekla: string;
 }
 
 const {
@@ -40,10 +43,13 @@ const {
   scroll,
   linea,
   beam,
+  taiko_alethia,
+  // Testnets
   sepolia,
   base_sepolia,
   arbitrum_sepolia,
   optimism_sepolia,
+  taiko_hekla,
 } = rpcData as RpcUrls;
 
 export interface ChainConfig {
@@ -69,10 +75,13 @@ export const gnosisChain: ChainConfig = { id: 100, name: 'Gnosis', rpc: gnosis, 
 export const scrollChain: ChainConfig = { id: 534352, name: 'Scroll', rpc: scroll, explorerAPI: process.env.SCROLLSCAN_API_KEY };
 export const lineaChain: ChainConfig = { id: 59144, name: 'Linea', rpc: linea, explorerAPI: process.env.LINEASCAN_API_KEY };
 export const beamChain: ChainConfig = { id: 4337, name: 'Beam', rpc: beam, explorerAPI: process.env.BEAM_API_KEY };
+export const taikoAlethiaChain: ChainConfig = { id: 167000, name: 'Taiko Alethia', rpc: taiko_alethia, explorerAPI: process.env.ETHERSCAN_API_KEY };
+  // Testnets
 export const sepoliaChain: ChainConfig = { id: 11155111, name: 'Sepolia', rpc: sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const baseSepoliaChain: ChainConfig = { id: 84532, name: 'Base Sepolia', rpc: base_sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const arbitrumSepoliaChain: ChainConfig = { id: 421614, name: 'Arbitrum Sepolia', rpc: arbitrum_sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const optimismSepoliaChain: ChainConfig = { id: 11155420, name: 'OP Sepolia', rpc: optimism_sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const taikoHeklaChain: ChainConfig = { id: 167009, name: 'Taiko Hekla', rpc: taiko_hekla, explorerAPI: process.env.ETHERSCAN_API_KEY };
 
 export const CHAINS_BY_FLAG: Record<string, ChainConfig> = {
   mainet: mainetChain,
@@ -92,8 +101,12 @@ export const CHAINS_BY_FLAG: Record<string, ChainConfig> = {
   scroll: scrollChain,
   linea: lineaChain,
   beam: beamChain,
+  taiko: taikoAlethiaChain,
+  taiko_alethia: taikoAlethiaChain,
+  // Testnets
   sepolia: sepoliaChain,
   base_sepolia: baseSepoliaChain,
   arbitrum_sepolia: arbitrumSepoliaChain,
   optimism_sepolia: optimismSepoliaChain,
+  taiko_hekla: taikoHeklaChain,
 };
