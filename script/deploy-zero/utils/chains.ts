@@ -19,6 +19,8 @@ interface RpcUrls {
   linea: string;
   beam: string;
   taiko_alethia: string;
+  clankermon: string;
+  kl1: string;
   // Testnets
   sepolia: string;
   base_sepolia: string;
@@ -44,6 +46,8 @@ const {
   linea,
   beam,
   taiko_alethia,
+  clankermon,
+  kl1,
   // Testnets
   sepolia,
   base_sepolia,
@@ -76,6 +80,8 @@ export const scrollChain: ChainConfig = { id: 534352, name: 'Scroll', rpc: scrol
 export const lineaChain: ChainConfig = { id: 59144, name: 'Linea', rpc: linea, explorerAPI: process.env.LINEASCAN_API_KEY };
 export const beamChain: ChainConfig = { id: 4337, name: 'Beam', rpc: beam, explorerAPI: process.env.BEAM_API_KEY };
 export const taikoAlethiaChain: ChainConfig = { id: 167000, name: 'Taiko Alethia', rpc: taiko_alethia, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const clankermonChain: ChainConfig = { id: 510525, name: 'Clankermon', rpc: clankermon, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const kl1Chain: ChainConfig = { id: 3008, name: 'kl1', rpc: kl1, explorerAPI: process.env.ETHERSCAN_API_KEY };
   // Testnets
 export const sepoliaChain: ChainConfig = { id: 11155111, name: 'Sepolia', rpc: sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const baseSepoliaChain: ChainConfig = { id: 84532, name: 'Base Sepolia', rpc: base_sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
@@ -103,6 +109,8 @@ export const CHAINS_BY_FLAG: Record<string, ChainConfig> = {
   beam: beamChain,
   taiko: taikoAlethiaChain,
   taiko_alethia: taikoAlethiaChain,
+  clankermon: clankermonChain,
+  kl1: kl1Chain,
   // Testnets
   sepolia: sepoliaChain,
   base_sepolia: baseSepoliaChain,

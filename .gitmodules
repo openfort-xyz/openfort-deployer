@@ -16,3 +16,6 @@
 [submodule "lib/bls-keygen"]
 	path = lib/bls-keygen
 	url = https://github.com/ChainSafe/bls-keygen.git
+[submodule "lib/solady"]
+	path = lib/solady
+	url = https://github.com/Vectorized/solady

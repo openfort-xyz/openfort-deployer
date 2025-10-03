@@ -90,3 +90,24 @@ export function buildPaymasterV2InitCode(
   ) as Hex;
   return concatHex([creationCode, args]) as Hex;
 }
+
+export function buildPaymasterV3InitCode(
+  owner: Hex,
+  manager: Hex,
+  signers: Hex[],
+  creationCode: Hex
+): Hex {
+  const args = encodeAbiParameters(
+    [
+      { type: 'address' },
+      { type: 'address' },
+      { type: 'address[]' },
+    ],
+    [
+      owner,
+      manager,
+      signers,
+    ],
+  ) as Hex;
+  return concatHex([creationCode, args]) as Hex;
+}
