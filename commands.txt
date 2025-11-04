@@ -66,7 +66,10 @@ forge verify-contract \
   # ---------------------- WebAuthn Verifier ---------------------- #
 
   # ---------------------- P256 Verifier ---------------------- #
-
+  npx ts-node script/deploy-zero/index.ts P256Verifier \
+  --sepolia \
+  --base_sepolia \
+  --clankermon 
   # ---------------------- P256 Verifier ---------------------- #
 
   # ---------------------- Social Recovery Manager ---------------------- #
