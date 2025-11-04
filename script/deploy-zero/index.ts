@@ -47,7 +47,9 @@ async function main(contract_name: string) {
     let initCode: Hex;
     
     if (!contract.isExist) {
-      initCode = concatHex([contract.creationByteCode, contract.constructor_args!]) as Hex;
+      initCode = contract.constructor_args
+        ? concatHex([contract.creationByteCode, contract.constructor_args]) as Hex
+        : contract.creationByteCode;
 
       predicted = computeCreate2Address(initCode, contract.salt as Hex);
       contract.address = predicted;

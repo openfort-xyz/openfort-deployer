@@ -45,7 +45,24 @@ forge verify-contract \
   # ---------------------- Gas Policy ---------------------- #
 
   # ---------------------- WebAuthn Verifier ---------------------- #
+  npx ts-node script/deploy-zero/index.ts WebAuthnVerifier \
+  --sepolia \
+  --base_sepolia \
+  --clankermon
 
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x00000256d7ef704c043cb352D7D6D3546A720A2e \
+  --path src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier \
+  --sepolia \
+  --base_sepolia 
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --watch \
+  0x00000256d7ef704c043cb352D7D6D3546A720A2e \
+  src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier
   # ---------------------- WebAuthn Verifier ---------------------- #
 
   # ---------------------- P256 Verifier ---------------------- #
