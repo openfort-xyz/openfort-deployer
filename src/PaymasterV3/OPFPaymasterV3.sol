@@ -349,10 +349,9 @@ contract OPFPaymasterV3 is BaseSingletonPaymaster, IPaymasterV8 {
      * @param _newManager Address of new manager.
      */
     function setManager(address _newManager) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        if (
-            _newManager == address(0) || _newManager == MANAGER || _newManager == OWNER
-                || signers[_newManager]
-        ) revert BasePaymaster__WrongManagerAddress(_newManager);
+        if (_newManager == address(0) || _newManager == MANAGER || _newManager == OWNER || signers[_newManager]) {
+            revert BasePaymaster__WrongManagerAddress(_newManager);
+        }
         address _oldManager = MANAGER;
         _revokeRole(MANAGER_ROLE, MANAGER);
         _grantRole(MANAGER_ROLE, _newManager);

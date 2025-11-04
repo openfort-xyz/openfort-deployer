@@ -47,7 +47,7 @@ async function main(contract_name: string) {
     let initCode: Hex;
     
     if (!contract.isExist) {
-      initCode = concatHex([ContractsToDeploy.OPFPaymasterV3.creationByteCode, ContractsToDeploy.OPFPaymasterV3.constructor_args!]) as Hex;
+      initCode = concatHex([contract.creationByteCode, contract.constructor_args!]) as Hex;
 
       predicted = computeCreate2Address(initCode, contract.salt as Hex);
       contract.address = predicted;

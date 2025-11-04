@@ -20,3 +20,38 @@ forge verify-contract \
   0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
   src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3
   # ---------------------- Paymaster V3 ---------------------- #
+
+  # ---------------------- Gas Policy ---------------------- #
+  npx ts-node script/deploy-zero/index.ts GasPolicy \
+  --sepolia \
+  --base_sepolia \
+  --clankermon
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
+  --path src/Gas-Policy/GasPolicy.sol:GasPolicy \
+  --sepolia \
+  --base_sepolia \
+  --constructor 0x000000000000000000000000000000000000000000000000000000000001adb00000000000000000000000000000000000000000000000000000000000057e40000000000000000000000000000000000000000000000000000000000003a980000000000000000000000000000000000000000000000000000000000000ea60000000000000000000000000000000000000000000000000000000000000ea60
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --constructor-args 0x000000000000000000000000000000000000000000000000000000000001adb00000000000000000000000000000000000000000000000000000000000057e40000000000000000000000000000000000000000000000000000000000003a980000000000000000000000000000000000000000000000000000000000000ea60000000000000000000000000000000000000000000000000000000000000ea60 \
+  --watch \
+  0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
+  src/Gas-Policy/GasPolicy.sol:GasPolicy
+  # ---------------------- Gas Policy ---------------------- #
+
+  # ---------------------- WebAuthn Verifier ---------------------- #
+
+  # ---------------------- WebAuthn Verifier ---------------------- #
+
+  # ---------------------- P256 Verifier ---------------------- #
+
+  # ---------------------- P256 Verifier ---------------------- #
+
+  # ---------------------- Social Recovery Manager ---------------------- #
+
+  # ---------------------- Social Recovery Manager ---------------------- #
