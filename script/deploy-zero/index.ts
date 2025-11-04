@@ -2,7 +2,7 @@
 import chalk from 'chalk'
 import type { Hex } from 'viem';
 import { argv, exit } from 'node:process';
-import { formatEther } from 'viem';
+import { formatEther, concatHex } from 'viem';
 import { deployThroughProxy } from './utils/deploy';
 import { computeCreate2Address } from './utils/create2';
 import { ContractsToDeploy, ContractToDeploy } from './utils/ContractsByteCode';
@@ -47,7 +47,7 @@ async function main(contract_name: string) {
     let initCode: Hex;
     
     if (!contract.isExist) {
-      initCode = ContractsToDeploy.computeInitCode(contract, client.account.address);
+      initCode = concatHex([ContractsToDeploy.OPFPaymasterV3.creationByteCode, ContractsToDeploy.OPFPaymasterV3.constructor_args!]) as Hex;
 
       predicted = computeCreate2Address(initCode, contract.salt as Hex);
       contract.address = predicted;

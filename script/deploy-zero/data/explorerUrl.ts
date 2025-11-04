@@ -17,6 +17,7 @@ export const explorer_url = {
     "Linea": "https://lineascan.build/",
     "Beam": "https://4337.routescan.io/",
     "Taiko Alethia": "https://taikoscan.io/",
+    "Clankermon": "https://explorer.clankermon.com/",
     // Testnets
     "Sepolia": "https://sepolia.etherscan.io/",
     "Base Sepolia": "https://sepolia.basescan.org/",

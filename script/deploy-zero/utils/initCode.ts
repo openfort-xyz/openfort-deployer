@@ -73,6 +73,7 @@ export function buildFactoryV6InitCode(
 
   return concatHex([creationCode, args]) as Hex;
 }
+
 export function buildPaymasterV2InitCode(
   entrypoint: Hex,
   owner: Hex,
@@ -109,5 +110,33 @@ export function buildPaymasterV3InitCode(
       signers,
     ],
   ) as Hex;
+  return concatHex([creationCode, args]) as Hex;
+}
+
+export function buildGasPolicyInitCode(
+  DEFAULT_PVG: bigint,
+  DEFAULT_VGL: bigint,
+  DEFAULT_CGL: bigint,
+  DEFAULT_PMV: bigint,
+  DEFAULT_PO: bigint,
+  creationCode: Hex
+): Hex {
+  const args = encodeAbiParameters(
+    [
+      { type: 'uint256' },
+      { type: 'uint256' },
+      { type: 'uint256' },
+      { type: 'uint256' },
+      { type: 'uint256' },
+    ],
+    [
+      DEFAULT_PVG,
+      DEFAULT_VGL,
+      DEFAULT_CGL,
+      DEFAULT_PMV,
+      DEFAULT_PO
+    ],
+  ) as Hex;
+
   return concatHex([creationCode, args]) as Hex;
 }
