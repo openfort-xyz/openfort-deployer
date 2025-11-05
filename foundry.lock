@@ -1,0 +1,14 @@
+{
+  "lib/account-abstraction": {
+    "rev": "4cbc06072cdc19fd60f285c5997f4f7f57a588de"
+  },
+  "lib/solady": {
+    "rev": "acd959aa4bd04720d640bf4e6a5c71037510cc4b"
+  },
+  "lib/webauthn-sol": {
+    "tag": {
+      "name": "v1.0.0",
+      "rev": "619f20ab0f074fef41066ee4ab24849a913263b2"
+    }
+  }
+}
