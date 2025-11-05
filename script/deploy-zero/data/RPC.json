@@ -14,8 +14,13 @@
     "scroll": "https://scroll-rpc.publicnode.com",
     "linea": "https://linea-rpc.publicnode.com",
     "beam": "https://build.onbeam.com/rpc",
+    "taiko_alethia": "https://taiko-rpc.publicnode.com",
+    "clankermon": "https://rpc.clankermon.com",
+    "kl1": "https://kl1-testnet.kiooverse.xyz/rpc",
+
     "sepolia": "https://ethereum-sepolia-rpc.publicnode.com",
     "base_sepolia": "https://base-sepolia-rpc.publicnode.com",
     "arbitrum_sepolia": "https://arbitrum-sepolia.gateway.tenderly.co",
-    "optimism_sepolia": "https://optimism-sepolia.drpc.org"
+    "optimism_sepolia": "https://optimism-sepolia.drpc.org",
+    "taiko_hekla": "https://taiko-hekla-rpc.publicnode.com"
 }

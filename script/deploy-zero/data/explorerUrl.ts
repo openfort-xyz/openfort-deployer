@@ -16,10 +16,14 @@ export const explorer_url = {
     "Scroll": "https://scrollscan.com/",
     "Linea": "https://lineascan.build/",
     "Beam": "https://4337.routescan.io/",
+    "Taiko Alethia": "https://taikoscan.io/",
+    "Clankermon": "https://explorer.clankermon.com/",
+    // Testnets
     "Sepolia": "https://sepolia.etherscan.io/",
     "Base Sepolia": "https://sepolia.basescan.org/",
     "Arbitrum Sepolia": "https://sepolia.arbiscan.io/",
-    "OP Sepolia": "https://sepolia-optimism.etherscan.io/"
+    "OP Sepolia": "https://sepolia-optimism.etherscan.io/",
+    "Taiko Hekla": "https://hekla.taikoscan.io/"
 }
 
 export function getExplorerUrl(chainName: string, txHash: string): string {

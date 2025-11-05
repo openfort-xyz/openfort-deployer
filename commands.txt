@@ -1,30 +1,77 @@
-sh getByteCode.sh --path src/  
-
-npx ts-node script/deploy-zero/index.ts MinimalAccountV8 \
+# ---------------------- Paymaster V3 ---------------------- #
+npx ts-node script/deploy-zero/index.ts OPFPaymasterV3 \
   --sepolia \
   --base_sepolia \
-  --optimism_sepolia \
-
-npx ts-node script/deploy-free-gas/index.ts \
-  --sepolia \
-  --base_sepolia \
-  --optimism_sepolia \
-  --arbitrum_sepolia
+  --clankermon
 
 npx ts-node script/deploy-zero/verify-multi.ts \
-  --address 0xE467fA3987A000adf7F0478BAF17ca46b6769331 \
-  --path src/AccountV9.sol:MinimalAccountV9 \
+  --address 0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
+  --path src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3 \
   --sepolia \
   --base_sepolia \
-  --optimism_sepolia \
-  --constructor $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x56ed253A8D2f97B2623A6aEfc1284E9B02a8a379 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)
+  --constructor 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
+  --watch \
+  0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
+  src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3
+  # ---------------------- Paymaster V3 ---------------------- #
+
+  # ---------------------- Gas Policy ---------------------- #
+  npx ts-node script/deploy-zero/index.ts GasPolicy \
+  --sepolia \
+  --base_sepolia \
+  --clankermon
 
 npx ts-node script/deploy-zero/verify-multi.ts \
-  --address 0x51032c841E823BB487C33c9f1773B18C8d0E5209 \
-  --path src/OpenfortPaymasterV2/contracts/paymaster/OpenfortPaymasterV2.sol:OpenfortPaymasterV2 \
+  --address 0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
+  --path src/Gas-Policy/GasPolicy.sol:GasPolicy \
   --sepolia \
-  --constructor 0x0000000000000000000000005ff137d4b0fdcd49dca30c7cf57e578a026d2789000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
+  --base_sepolia \
+  --constructor 0x000000000000000000000000000000000000000000000000000000000001adb00000000000000000000000000000000000000000000000000000000000057e40000000000000000000000000000000000000000000000000000000000003a980000000000000000000000000000000000000000000000000000000000000ea60000000000000000000000000000000000000000000000000000000000000ea60
 
-  npx ts-node script/deploy-zero/index.ts MinimalAccountV2 --sepolia --base_sepolia --optimism_sepolia --arbitrum_sepolia
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --constructor-args 0x000000000000000000000000000000000000000000000000000000000001adb00000000000000000000000000000000000000000000000000000000000057e40000000000000000000000000000000000000000000000000000000000003a980000000000000000000000000000000000000000000000000000000000000ea60000000000000000000000000000000000000000000000000000000000000ea60 \
+  --watch \
+  0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
+  src/Gas-Policy/GasPolicy.sol:GasPolicy
+  # ---------------------- Gas Policy ---------------------- #
 
-  $(cast abi-encode "constructor(address,address,address,uint256,uint256,uint256,uint256,address)" 0x56ed253A8D2f97B2623A6aEfc1284E9B02a8a379 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab 172800 86400 43200 8640 0xbebCD8Cba50c84f999d6A8C807f261FF278161fb)
+  # ---------------------- WebAuthn Verifier ---------------------- #
+  npx ts-node script/deploy-zero/index.ts WebAuthnVerifier \
+  --sepolia \
+  --base_sepolia \
+  --clankermon
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x00000256d7ef704c043cb352D7D6D3546A720A2e \
+  --path src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier \
+  --sepolia \
+  --base_sepolia 
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --watch \
+  0x00000256d7ef704c043cb352D7D6D3546A720A2e \
+  src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier
+  # ---------------------- WebAuthn Verifier ---------------------- #
+
+  # ---------------------- P256 Verifier ---------------------- #
+  npx ts-node script/deploy-zero/index.ts P256Verifier \
+  --sepolia \
+  --base_sepolia \
+  --clankermon 
+  # ---------------------- P256 Verifier ---------------------- #
+
+  # ---------------------- Social Recovery Manager ---------------------- #
+
+  # ---------------------- Social Recovery Manager ---------------------- #

@@ -1,6 +1,103 @@
+# Load environment variables from .env
+include .env
+export $(shell sed 's/=.*//' .env)
+
 .SILENT:
 
-encrypt-key:
-	cast wallet import defauktKey --interactive
-compute-factory-v6-address:
-	forge script script/OGComputeAddress.s.sol:OGComputeAddressFactoryV6
+install-ts:
+	npm install viem dotenv permissionless tslib
+
+check-code:
+	cast code $(ADDRESS_OPENFORT_USER_ADDRESS_7702) --rpc-url $(SEPOLIA_RPC_URL)
+	
+openzeppelin:
+	forge install openzeppelin/openzeppelin-contracts
+
+account-abstraction:
+	forge install eth-infinitism/account-abstraction
+
+solady:
+	forge install Vectorized/solady
+
+install-forge: openzeppelin account-abstraction solady
+
+test-keys:
+	forge test --mp test/V2/unit/KeysManager.t.sol -vv 
+
+test-upgrade-addresses:
+	forge test --mp test/unit/UpgradeAddresses.t.sol -vv --rpc-url $(SEPOLIA_RPC_URL)
+
+test-P256:
+	npx tsx --experimental-global-webcrypto script/P256_Single_Mint.ts && forge test --mp test/unit/P256.t.sol -vv --rpc-url $(SEPOLIA_RPC_URL)
+
+test-registartion:
+	forge test --mp test/unit/Registartion.t.sol -vv --rpc-url $(SEPOLIA_RPC_URL)
+
+test-eth:
+	npx tsx --experimental-global-webcrypto script/P256_ETH.ts && npx tsx --experimental-global-webcrypto script/P256_ETH_Batch.ts && forge test --mc DepositAndTransferETH -vv
+
+test-execution:
+	npx tsx --experimental-global-webcrypto script/P256_EXE.ts && npx tsx --experimental-global-webcrypto script/P256_EXE_Batch.ts && forge test --mc Execution -vv
+
+test-recovery:
+	forge test --mp test/unit/Recoverable.t.sol --rpc-url $(SEPOLIA_RPC_URL) -vv 
+
+test-gas:
+	forge test --mp test/gas/GasFuzzing.t.sol --rpc-url $(SEPOLIA_RPC_URL) -vv  && forge test --mp test/gas/GasPolicyTest.t.sol --rpc-url $(SEPOLIA_RPC_URL) -vv 
+
+test-all:
+	npx tsx --experimental-global-webcrypto  script/P256_Single_Mint.ts && npx tsx --experimental-global-webcrypto  script/P256_ETH.ts && npx tsx --experimental-global-webcrypto  script/P256.ts && forge test -vv --rpc-url $(SEPOLIA_RPC_URL)
+
+coverage:
+	forge coverage --ir-minimum --rpc-url $(SEPOLIA_RPC_URL) >> coverage.txt
+
+report-debug:
+	forge coverage --match-path "src/core/BaseOPF7702.sol" --ir-minimum --rpc-url $(SEPOLIA_RPC_URL) >> report_debug_BaseOPF7702.txt
+
+report-json:
+	forge coverage --report json --ir-minimum --rpc-url $(SEPOLIA_RPC_URL) >> coverage.json
+
+lcov:
+	forge coverage --report lcov --ir-minimum --rpc-url $(SEPOLIA_RPC_URL)  && genhtml lcov.info -o coverage-html/ --ignore-errors inconsistent,corrupt
+
+gas:
+	forge test --gas-report --rpc-url $(SEPOLIA_RPC_URL)
+
+size:
+	forge clean && forge build --sizes
+
+storage:
+	forge clean && forge inspect src/core/OPFMain.sol:OPFMain storageLayout
+	
+deploy-webauthn:
+	forge create src/utils/WebAuthnVerifier.sol:WebAuthnVerifier  \
+	--rpc-url $(SEPOLIA_RPC_URL) \
+	--account BURNER_KEY \
+	--verify \
+	--etherscan-api-key $(ETHERSCAN_KEY) \
+	--broadcast 
+
+deploy-webauthnv2:
+	forge create src/utils/WebAuthnVerifierV2.sol:WebAuthnVerifierV2  \
+	--rpc-url $(SEPOLIA_RPC_URL) \
+	--account BURNER_KEY \
+	--verify \
+	--etherscan-api-key $(ETHERSCAN_KEY) \
+	--broadcast 
+
+deploy-7702-base:
+	forge create src/core/OPF7702Recoverable.sol:OPF7702Recoverable \
+	--rpc-url $(SEPOLIA_BASE_RPC_URL) \
+	--account BURNER_KEY \
+	--verify \
+	--etherscan-api-key $(ETHERSCAN_KEY_BASE) \
+	--broadcast \
+	--constructor-args 0x4337084D9E255Ff0702461CF8895CE9E3b5Ff108 0xeD43b3a3D00d791BC0B353666b5780B0F9245CC1 172800 604800 129600 43200
+
+# 0xDCeaC68C8463Ed6b1026a47fe935dBC41392490f
+deploy-7702-mainnet:
+	forge create src/Account.sol:MinimalAccount \
+	--rpc-url https://kl1-testnet.kiooverse.xyz/rpc \
+	--account BURNER_KEY \
+	--broadcast \
+	--constructor-args 0x4337084D9E255Ff0702461CF8895CE9E3b5Ff108 0xeD43b3a3D00d791BC0B353666b5780B0F9245CC1 0xeD43b3a3D00d791BC0B353666b5780B0F9245CC1 172800 604800 129600 43200 0xeD43b3a3D00d791BC0B353666b5780B0F9245CC1
