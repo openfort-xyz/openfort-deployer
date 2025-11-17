@@ -25,7 +25,16 @@ export const explorer_url = {
     "OP Sepolia": "https://sepolia-optimism.etherscan.io/",
     "Taiko Hekla": "https://hekla.taikoscan.io/",
     "Polygon Amoy": "https://amoy.polygonscan.com/",
-    "Beam Testnet": "https://subnets-test.avax.network/beam/"
+    "Beam Testnet": "https://subnets-test.avax.network/beam/",
+    "Avalanche Fuji Testnet": "https://testnet.snowtrace.io/",
+    "BNB Smart Chain Testnet": "https://testnet.snowtrace.io/",
+    "Monad Testnet": "https://monad-testnet.socialscan.io/",
+    "Titan Testnet": "https://monad-testnet.socialscan.io/",
+    "opBNB Testnet": "https://opbnb-testnet.bscscan.com/",
+    "Zora Sepolia Testnet": "https://sepolia.explorer.zora.energy/",
+    "DOS Testnet": "https://3939.testnet.snowtrace.io/",
+    "Immutable zkEVM Testnet": "https://explorer.testnet.immutable.com/",
+    "Soneium Testnet Minato": "https://soneium-minato.blockscout.com/",
 }
 
 export function getExplorerUrl(chainName: string, txHash: string): string {

@@ -20,9 +20,18 @@
 
     "sepolia": "https://ethereum-sepolia-rpc.publicnode.com",
     "base_sepolia": "https://base-sepolia-rpc.publicnode.com",
-    "arbitrum_sepolia": "https://arbitrum-sepolia.gateway.tenderly.co",
+    "arbitrum_sepolia": "https://arbitrum-sepolia-rpc.publicnode.com",
     "optimism_sepolia": "https://optimism-sepolia.drpc.org",
-    "taiko_hekla": "https://taiko-hekla-rpc.publicnode.com",
-    "polygon_amoy": "https://polygon-amoy.drpc.org",
-    "beam_testnet": "https://subnets.avax.network/beam/testnet/rpc"
+    "taiko_hekla": "https://hekla-testnet.rpc.porters.xyz/taiko-public",
+    "polygon_amoy": "https://polygon-amoy-bor-rpc.publicnode.com",
+    "beam_testnet": "https://subnets.avax.network/beam/testnet/rpc",
+    "avalanche_fuji_testnet": "https://avalanche-fuji-c-chain-rpc.publicnode.com",
+    "bsc_testnet": "https://bsc-testnet-rpc.publicnode.com",
+    "monad_testnet": "https://monad-testnet.drpc.org",
+    "titan_testnet": "https://titan-testnet-json-rpc.titanlab.io",
+    "opBNB_testnet": "https://opbnb-testnet-rpc.publicnode.com",
+    "zora_testnet": "https://sepolia.rpc.zora.energy",
+    "dos_chain_testnet": "https://test.doschain.com",
+    "immutable_zkEVM_testnet": "https://immutable-zkevm-testnet.drpc.org",
+    "soneium_minato": "https://soneium-minato.drpc.org"
 }

@@ -1,9 +1,22 @@
   # ---------------------- Calibur Testnets ---------------------- #
   npx ts-node script/deploy-zero/index.ts Calibur \
-  --optimism_sepolia \
   --sepolia \
   --base_sepolia \
-  --clankermon \
+  --arbitrum_sepolia \
+  --optimism_sepolia \
+  --bsc_testnet \
+  --opBNB_testnet \
+  --zora_testnet \
+  --soneium_minato \
+  -- kl1 \
+  --polygon_amoy \
+  --beam_testnet \
+  --avalanche_fuji_testnet \
+  --monad_testnet \
+  --titan_testnet \
+  --dos_chain_testnet \
+  --immutable_zkEVM_testnet \
+  --taiko_hekla 
 
 npx ts-node script/deploy-zero/verify-multi.ts \
   --address 0x0000babe60e7fba781ba312676f3d36781a88800 \

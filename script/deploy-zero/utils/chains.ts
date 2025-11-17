@@ -29,6 +29,15 @@ interface RpcUrls {
   taiko_hekla: string;
   polygon_amoy: string;
   beam_testnet: string;
+  avalanche_fuji_testnet: string;
+  bsc_testnet: string;
+  monad_testnet: string;
+  titan_testnet: string;
+  opBNB_testnet: string;
+  zora_testnet: string;
+  dos_chain_testnet: string;
+  immutable_zkEVM_testnet: string;
+  soneium_minato: string;
 }
 
 const {
@@ -58,6 +67,15 @@ const {
   taiko_hekla,
   polygon_amoy,
   beam_testnet,
+  avalanche_fuji_testnet,
+  bsc_testnet,
+  monad_testnet,
+  titan_testnet,
+  opBNB_testnet,
+  zora_testnet,
+  dos_chain_testnet,
+  immutable_zkEVM_testnet,
+  soneium_minato,
 } = rpcData as RpcUrls;
 
 export interface ChainConfig {
@@ -94,6 +112,15 @@ export const optimismSepoliaChain: ChainConfig = { id: 11155420, name: 'OP Sepol
 export const taikoHeklaChain: ChainConfig = { id: 167009, name: 'Taiko Hekla', rpc: taiko_hekla, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const polygonAmoyChain: ChainConfig = { id: 80002, name: 'Polygon Amoy', rpc: polygon_amoy, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const beamTestnetChain: ChainConfig = { id: 13337, name: 'Beam Testnet', rpc: beam_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const avalancheFujiTestnet: ChainConfig = { id: 43113, name: 'Avalanche Fuji Testnet', rpc: avalanche_fuji_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const bscTestnet: ChainConfig = { id: 97, name: 'BNB Smart Chain Testnet', rpc: bsc_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const monadTestnet: ChainConfig = { id: 143, name: 'Monad Testnet', rpc: monad_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const titanTestnet: ChainConfig = { id: 18889, name: 'Titan Testnet', rpc: titan_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const opBNBTestnet: ChainConfig = { id: 5611, name: 'opBNB Testnet', rpc: opBNB_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const zoraTestnet: ChainConfig = { id: 999999999, name: 'Zora Sepolia Testnet', rpc: zora_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const dosChainTestnet: ChainConfig = { id: 3939, name: 'DOS Testnet', rpc: dos_chain_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const immutablezkEVMTestnet: ChainConfig = { id: 13473, name: 'Immutable zkEVM Testnet', rpc: immutable_zkEVM_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const soneiumMinato: ChainConfig = { id: 1946, name: 'Soneium Testnet Minato', rpc: soneium_minato, explorerAPI: process.env.ETHERSCAN_API_KEY };
 
 export const CHAINS_BY_FLAG: Record<string, ChainConfig> = {
   mainet: mainetChain,
@@ -125,4 +152,12 @@ export const CHAINS_BY_FLAG: Record<string, ChainConfig> = {
   taiko_hekla: taikoHeklaChain,
   polygon_amoy: polygonAmoyChain,
   beam_testnet: beamTestnetChain,
+  avalanche_fuji_testnet: avalancheFujiTestnet,
+  bsc_testnet: bscTestnet,
+  titan_testnet: titanTestnet,
+  opBNB_testnet: opBNBTestnet,
+  zora_testnet: zoraTestnet,
+  dos_chain_testnet: dosChainTestnet,
+  immutable_zkEVM_testnet: immutablezkEVMTestnet,
+  soneium_minato: soneiumMinato,
 };
