@@ -22,5 +22,7 @@
     "base_sepolia": "https://base-sepolia-rpc.publicnode.com",
     "arbitrum_sepolia": "https://arbitrum-sepolia.gateway.tenderly.co",
     "optimism_sepolia": "https://optimism-sepolia.drpc.org",
-    "taiko_hekla": "https://taiko-hekla-rpc.publicnode.com"
+    "taiko_hekla": "https://taiko-hekla-rpc.publicnode.com",
+    "polygon_amoy": "https://polygon-amoy.drpc.org",
+    "beam_testnet": "https://subnets.avax.network/beam/testnet/rpc"
 }

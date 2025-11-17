@@ -23,7 +23,9 @@ export const explorer_url = {
     "Base Sepolia": "https://sepolia.basescan.org/",
     "Arbitrum Sepolia": "https://sepolia.arbiscan.io/",
     "OP Sepolia": "https://sepolia-optimism.etherscan.io/",
-    "Taiko Hekla": "https://hekla.taikoscan.io/"
+    "Taiko Hekla": "https://hekla.taikoscan.io/",
+    "Polygon Amoy": "https://amoy.polygonscan.com/",
+    "Beam Testnet": "https://subnets-test.avax.network/beam/"
 }
 
 export function getExplorerUrl(chainName: string, txHash: string): string {

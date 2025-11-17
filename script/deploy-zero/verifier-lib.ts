@@ -48,7 +48,7 @@ async function verifyContract(
   const command =
     `forge verify-contract --watch --chain ${chain.id} --verifier etherscan` +
     ctorFlag + ' ' +
-    `${contractAddress} ${contractName} -e ${chain.explorerAPI} -a v2`;
+    `${contractAddress} ${contractName} -e ${chain.explorerAPI}`;
   try {
     const { stdout, stderr } = await execPromise(command, { maxBuffer: 10_000_000 });
     return classify(stdout, stderr, contractName, contractAddress, chain.name);
