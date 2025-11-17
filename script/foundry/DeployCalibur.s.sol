@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.29;
 
-import { CaliburEntry } from "src/src/CaliburEntry.sol";
+import { CaliburEntry } from "src/CaliburEntry.sol";
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
 contract DeployCalibur is Script {
@@ -46,9 +46,9 @@ contract DeployCalibur is Script {
     }
 }
 
-// forge script script/foundry/DeployPaymasterV3.s.sol \
+// forge script src/CaliburEntry.sol:CaliburEntry \
 //   --account BURNER_KEY \
-//   --rpc-url https://base-rpc.publicnode.com \
+//   --rpc-url https://polygon-amoy-bor-rpc.publicnode.com \
 //   -vvvv \
 //   --verify \
 //   --etherscan-api-key QNAZY35DJPVNWFA9G1Y1ITGQ4H4YK8WB1J \

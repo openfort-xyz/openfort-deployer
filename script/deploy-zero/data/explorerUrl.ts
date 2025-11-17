@@ -35,6 +35,7 @@ export const explorer_url = {
     "DOS Testnet": "https://3939.testnet.snowtrace.io/",
     "Immutable zkEVM Testnet": "https://explorer.testnet.immutable.com/",
     "Soneium Testnet Minato": "https://soneium-minato.blockscout.com/",
+    "kl1": "https://explorer-testnet.kl1.network/",
 }
 
 export function getExplorerUrl(chainName: string, txHash: string): string {
