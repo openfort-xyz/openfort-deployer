@@ -30,8 +30,8 @@ npx ts-node script/deploy-zero/verify-multi.ts \
   --opBNB_testnet \
   --zora_testnet \
   --soneium_minato \
-  -- kl1 \
   --polygon_amoy \
+  -- kl1 \
   --beam_testnet \
   --avalanche_fuji_testnet \
   --monad_testnet \
@@ -55,4 +55,28 @@ forge verify-contract \
   --watch \
   0x0000babe60e7fba781ba312676f3d36781a88800 \
   src/CaliburEntry.sol:CaliburEntry
-  # ---------------------- WebAuthn Verifier ---------------------- #
+  # ---------------------- Calibur Verifier ---------------------- #
+
+
+
+  # ---------------------- Calibur Mainets ---------------------- #
+  npx ts-node script/deploy-zero/index.ts Calibur \
+  --mainet \
+  --base \
+  --arbitrum \
+  --bnb \
+  --optimism \
+  --polygon \
+  --avalanche 
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x0000babe60e7fba781ba312676f3d36781a88800 \
+  --path src/CaliburEntry.sol:CaliburEntry \
+  --mainet \
+  --base \
+  --arbitrum \
+  --bnb \
+  --optimism \
+  --polygon \
+  --avalanche 
+  # ---------------------- Calibur Mainets ---------------------- #
