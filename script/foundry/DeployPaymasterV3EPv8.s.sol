@@ -3,10 +3,10 @@
 pragma solidity ^0.8.29;
 
 import "lib/forge-std/src/StdJson.sol";
-import { OPFPaymasterV3 } from "src/PaymasterV3/OPFPaymasterV3.sol";
+import { OPFPaymasterV3 } from "src/PaymasterV3EPv8/OPFPaymasterV3.sol";
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
-contract DeployPaymasterV3 is Script {
+contract DeployPaymasterV3EPv8 is Script {
     bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000000bae47fc9;
     address owner = 0xA84E4F9D72cb37A8276090D3FC50895BD8E5Aaf1;
     address manager = 0x25B10f9CAdF3f9F7d3d57921fab6Fdf64cC8C7f4;

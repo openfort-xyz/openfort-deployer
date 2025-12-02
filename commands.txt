@@ -1,5 +1,6 @@
-# ---------------------- Paymaster V3 ---------------------- #
+# ---------------------- Paymaster V3 EPv8 ---------------------- #
 npx ts-node script/deploy-zero/index.ts OPFPaymasterV3 \
+  --open_loot_testnet \
   --optimism_sepolia \
   --sepolia \
   --base_sepolia \
@@ -21,7 +22,51 @@ forge verify-contract \
   --watch \
   0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
   src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3
-  # ---------------------- Paymaster V3 ---------------------- #
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
+  --watch \
+  0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
+  src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3
+  # ---------------------- Paymaster V3 EPv8 ---------------------- #
+
+# ---------------------- Paymaster V3 EPv9 ---------------------- #
+npx ts-node script/deploy-zero/index.ts OPFPaymasterV3EPv9 \
+  --open_loot_testnet \
+  --optimism_sepolia \
+  --sepolia \
+  --base_sepolia \
+  --clankermon
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x9999feeee391be73f8be15398e7fbfdf5bef625d \
+  --path src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3 \
+  --optimism_sepolia \
+  --sepolia \
+  --base_sepolia \
+  --constructor 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
+  --watch \
+  0x9999feeee391be73f8be15398e7fbfdf5bef625d \
+  src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
+  --watch \
+  0x9999feeee391be73f8be15398e7fbfdf5bef625d \
+  src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3
+  # ---------------------- Paymaster V3 EPv9 ---------------------- #
 
   # ---------------------- Gas Policy ---------------------- #
   npx ts-node script/deploy-zero/index.ts GasPolicy \
