@@ -12,7 +12,7 @@ export interface ContractToDeploy {
 }
 
 export class ContractsToDeploy {
-    static OPFPaymasterV3: ContractToDeploy =
+    static OPFPaymasterV3EPv8: ContractToDeploy =
         {
             name: 'OPFPaymasterV3',
             address: '0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA' as Hex,

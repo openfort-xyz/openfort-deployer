@@ -1,5 +1,5 @@
 # ---------------------- Paymaster V3 EPv8 ---------------------- #
-npx ts-node script/deploy-zero/index.ts OPFPaymasterV3 \
+npx ts-node script/deploy-zero/index.ts OPFPaymasterV3EPv8 \
   --open_loot_testnet \
   --optimism_sepolia \
   --sepolia \
@@ -31,7 +31,7 @@ forge verify-contract \
   --watch \
   0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
   src/PaymasterV3EPv8/OPFPaymasterV3.sol:OPFPaymasterV3
-  # ---------------------- Paymaster V3 EPv8 ---------------------- #
+# ---------------------- Paymaster V3 EPv8 ---------------------- #
 
 # ---------------------- Paymaster V3 EPv9 ---------------------- #
 npx ts-node script/deploy-zero/index.ts OPFPaymasterV3EPv9 \
@@ -66,9 +66,9 @@ forge verify-contract \
   --watch \
   0x9999feeee391be73f8be15398e7fbfdf5bef625d \
   src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3
-  # ---------------------- Paymaster V3 EPv9 ---------------------- #
+# ---------------------- Paymaster V3 EPv9 ---------------------- #
 
-  # ---------------------- Gas Policy ---------------------- #
+# ---------------------- Gas Policy ---------------------- #
   npx ts-node script/deploy-zero/index.ts GasPolicy \
   --open_loot_testnet \
   --optimism_sepolia \
@@ -101,9 +101,9 @@ forge verify-contract \
   --watch \
   0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
   src/Gas-Policy/GasPolicy.sol:GasPolicy
-  # ---------------------- Gas Policy ---------------------- #
+# ---------------------- Gas Policy ---------------------- #
 
-  # ---------------------- WebAuthn Verifier ---------------------- #
+# ---------------------- WebAuthn Verifier ---------------------- #
   npx ts-node script/deploy-zero/index.ts WebAuthnVerifier \
   --open_loot_testnet \
   --optimism_sepolia \
@@ -133,9 +133,9 @@ forge verify-contract \
   --watch \
   0x00000256d7ef704c043cb352D7D6D3546A720A2e \
   src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier
-  # ---------------------- WebAuthn Verifier ---------------------- #
+# ---------------------- WebAuthn Verifier ---------------------- #
 
-  # ---------------------- P256 Verifier ---------------------- #
+# ---------------------- P256 Verifier ---------------------- #
   npx ts-node script/deploy-zero/index.ts P256Verifier \
   --open_loot_testnet \
   --optimism_sepolia \
@@ -150,9 +150,9 @@ forge verify-contract \
   --watch \
   0x000000000000D01eA45F9eFD5c54f037Fa57Ea1a \
   src/P256/P256Verifier.sol:P256Verifier
-  # ---------------------- P256 Verifier ---------------------- #
+# ---------------------- P256 Verifier ---------------------- #
 
-  # ---------------------- 7702/acc V1 ---------------------- #
+# ---------------------- 7702/acc V1 ---------------------- #
 npx ts-node script/deploy-zero/index.ts OPF7702v1 \
   --open_loot_testnet \
   --optimism_sepolia \
@@ -185,9 +185,9 @@ forge verify-contract \
   --watch \
   0x7702000152F33A40E1Fd30C70E708f624113aa68 \
   src/7702AccV1/core/OPFMain.sol:OPFMain
-  # ---------------------- 7702/acc V1 ---------------------- #
+# ---------------------- 7702/acc V1 ---------------------- #
 
-  # ---------------------- 7702/acc V1 EPV9 ---------------------- #
+# ---------------------- 7702/acc V1 EPV9 ---------------------- #
 npx ts-node script/deploy-zero/index.ts OPF7702v1EPv9 \
   --open_loot_testnet \
   --optimism_sepolia \
@@ -218,9 +218,9 @@ forge verify-contract \
   --watch \
   0x770201093028dff97683df845D6cDF731D01Ff15 \
   src/7702AccV1/core/OPFMain.sol:OPFMain
-  # ---------------------- 7702/acc V1 EPV9 ---------------------- #
+# ---------------------- 7702/acc V1 EPV9 ---------------------- #
 
-  # ---------------------- Calibur EPV8 ---------------------- #
+# ---------------------- Calibur EPV8 ---------------------- #
   npx ts-node script/deploy-zero/index.ts CaliburEPv8 \
   --open_loot_testnet \
 
@@ -231,9 +231,9 @@ forge verify-contract \
   --watch \
   0x0000BAbe60E7FBa781bA312676f3d36781a88800 \
   src/CaliburEPv8/CaliburEntry.sol:CaliburEntry
-  # ---------------------- Calibur EPV8 ---------------------- #
+# ---------------------- Calibur EPV8 ---------------------- #
 
-  # ---------------------- Calibur EPV9 ---------------------- #
+# ---------------------- Calibur EPV9 ---------------------- #
   npx ts-node script/deploy-zero/index.ts CaliburEPv9 \
   --open_loot_testnet \
 
@@ -244,4 +244,4 @@ forge verify-contract \
   --watch \
   0x0909BaBE45c728dcaf1604f9cab2f04641C1093B \
   src/CaliburEPv9/CaliburEntry.sol:CaliburEntry
-  # ---------------------- Calibur EPV9 ---------------------- #
+# ---------------------- Calibur EPV9 ---------------------- #
