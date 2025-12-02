@@ -8,7 +8,7 @@ npx ts-node script/deploy-zero/index.ts OPFPaymasterV3 \
 
 npx ts-node script/deploy-zero/verify-multi.ts \
   --address 0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
-  --path src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3 \
+  --path src/PaymasterV3EPv8/OPFPaymasterV3.sol:OPFPaymasterV3 \
   --optimism_sepolia \
   --sepolia \
   --base_sepolia \
@@ -21,7 +21,7 @@ forge verify-contract \
   --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
   --watch \
   0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
-  src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3
+  src/PaymasterV3EPv8/OPFPaymasterV3.sol:OPFPaymasterV3
 
 forge verify-contract \
   --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
@@ -30,7 +30,7 @@ forge verify-contract \
   --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
   --watch \
   0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
-  src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3
+  src/PaymasterV3EPv8/OPFPaymasterV3.sol:OPFPaymasterV3
   # ---------------------- Paymaster V3 EPv8 ---------------------- #
 
 # ---------------------- Paymaster V3 EPv9 ---------------------- #
@@ -219,3 +219,29 @@ forge verify-contract \
   0x770201093028dff97683df845D6cDF731D01Ff15 \
   src/7702AccV1/core/OPFMain.sol:OPFMain
   # ---------------------- 7702/acc V1 EPV9 ---------------------- #
+
+  # ---------------------- Calibur EPV8 ---------------------- #
+  npx ts-node script/deploy-zero/index.ts CaliburEPv8 \
+  --open_loot_testnet \
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --watch \
+  0x0000BAbe60E7FBa781bA312676f3d36781a88800 \
+  src/CaliburEPv8/CaliburEntry.sol:CaliburEntry
+  # ---------------------- Calibur EPV8 ---------------------- #
+
+  # ---------------------- Calibur EPV9 ---------------------- #
+  npx ts-node script/deploy-zero/index.ts CaliburEPv9 \
+  --open_loot_testnet \
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --watch \
+  0x0909BaBE45c728dcaf1604f9cab2f04641C1093B \
+  src/CaliburEPv9/CaliburEntry.sol:CaliburEntry
+  # ---------------------- Calibur EPV9 ---------------------- #
