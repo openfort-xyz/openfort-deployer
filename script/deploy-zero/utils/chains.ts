@@ -21,12 +21,14 @@ interface RpcUrls {
   taiko_alethia: string;
   clankermon: string;
   kl1: string;
+  open_loot: string;
   // Testnets
   sepolia: string;
   base_sepolia: string;
   arbitrum_sepolia: string;
   optimism_sepolia: string;
   taiko_hekla: string;
+  open_loot_testnet: string;
 }
 
 const {
@@ -48,12 +50,14 @@ const {
   taiko_alethia,
   clankermon,
   kl1,
+  open_loot,
   // Testnets
   sepolia,
   base_sepolia,
   arbitrum_sepolia,
   optimism_sepolia,
   taiko_hekla,
+  open_loot_testnet,
 } = rpcData as RpcUrls;
 
 export interface ChainConfig {
@@ -82,12 +86,14 @@ export const beamChain: ChainConfig = { id: 4337, name: 'Beam', rpc: beam, explo
 export const taikoAlethiaChain: ChainConfig = { id: 167000, name: 'Taiko Alethia', rpc: taiko_alethia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const clankermonChain: ChainConfig = { id: 510525, name: 'Clankermon', rpc: clankermon, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const kl1Chain: ChainConfig = { id: 3008, name: 'kl1', rpc: kl1, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const openLootChain: ChainConfig = { id: 510530, name: 'Open Loot', rpc: open_loot, explorerAPI: process.env.ETHERSCAN_API_KEY };
   // Testnets
 export const sepoliaChain: ChainConfig = { id: 11155111, name: 'Sepolia', rpc: sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const baseSepoliaChain: ChainConfig = { id: 84532, name: 'Base Sepolia', rpc: base_sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const arbitrumSepoliaChain: ChainConfig = { id: 421614, name: 'Arbitrum Sepolia', rpc: arbitrum_sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const optimismSepoliaChain: ChainConfig = { id: 11155420, name: 'OP Sepolia', rpc: optimism_sepolia, explorerAPI: process.env.ETHERSCAN_API_KEY };
 export const taikoHeklaChain: ChainConfig = { id: 167009, name: 'Taiko Hekla', rpc: taiko_hekla, explorerAPI: process.env.ETHERSCAN_API_KEY };
+export const openLootTestnetChain: ChainConfig = { id: 510531, name: 'Open Loot Testnet', rpc: open_loot_testnet, explorerAPI: process.env.ETHERSCAN_API_KEY };
 
 export const CHAINS_BY_FLAG: Record<string, ChainConfig> = {
   mainet: mainetChain,
@@ -111,10 +117,12 @@ export const CHAINS_BY_FLAG: Record<string, ChainConfig> = {
   taiko_alethia: taikoAlethiaChain,
   clankermon: clankermonChain,
   kl1: kl1Chain,
+  open_loot: openLootChain,
   // Testnets
   sepolia: sepoliaChain,
   base_sepolia: baseSepoliaChain,
   arbitrum_sepolia: arbitrumSepoliaChain,
   optimism_sepolia: optimismSepoliaChain,
   taiko_hekla: taikoHeklaChain,
+  open_loot_testnet: openLootTestnetChain,
 };
