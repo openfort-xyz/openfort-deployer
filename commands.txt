@@ -245,3 +245,16 @@ forge verify-contract \
   0x0909BaBE45c728dcaf1604f9cab2f04641C1093B \
   src/CaliburEPv9/CaliburEntry.sol:CaliburEntry
 # ---------------------- Calibur EPV9 ---------------------- #
+
+# ---------------------- Account EPV9 ---------------------- #
+  npx ts-node script/deploy-zero/index.ts AccountEPv9 \
+  --open_loot_testnet \
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --watch \
+  0x000ACC097696Ea735c7EBb1857836EDA53646BC8 \
+  src/Factory-AccountEPv9/upgradeable/UpgradeableOpenfortProxy.sol:UpgradeableOpenfortProxy
+# ---------------------- Account EPV9 ---------------------- #
