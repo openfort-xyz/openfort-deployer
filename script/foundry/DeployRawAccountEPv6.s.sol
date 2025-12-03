@@ -4,7 +4,7 @@ pragma solidity ^0.8.29;
 
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
-contract DeployRawFactoryEPv6 is Script {
+contract DeployRawAccountEPv6 is Script {
     address private CREATE2_DEPLOYER = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
     address constant ACCOUNT_EPv6 = 0x6e4a235c5f72a1054abFeb24c7eE6b48AcDe90ab;
 
