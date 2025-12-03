@@ -18,12 +18,14 @@ export const explorer_url = {
     "Beam": "https://4337.routescan.io/",
     "Taiko Alethia": "https://taikoscan.io/",
     "Clankermon": "https://explorer.clankermon.com/",
+    "Open Loot": "https://open-loot.explorer.syndicate.io/",
     // Testnets
     "Sepolia": "https://sepolia.etherscan.io/",
     "Base Sepolia": "https://sepolia.basescan.org/",
     "Arbitrum Sepolia": "https://sepolia.arbiscan.io/",
     "OP Sepolia": "https://sepolia-optimism.etherscan.io/",
-    "Taiko Hekla": "https://hekla.taikoscan.io/"
+    "Taiko Hekla": "https://hekla.taikoscan.io/",
+    "Open Loot Testnet": "https://open-loot.explorer.testnet.syndicate.io/"
 }
 
 export function getExplorerUrl(chainName: string, txHash: string): string {

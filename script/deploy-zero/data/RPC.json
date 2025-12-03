@@ -17,10 +17,12 @@
     "taiko_alethia": "https://taiko-rpc.publicnode.com",
     "clankermon": "https://rpc.clankermon.com",
     "kl1": "https://kl1-testnet.kiooverse.xyz/rpc",
+    "open_loot": "https://open-loot.rpc.syndicate.io",
 
     "sepolia": "https://ethereum-sepolia-rpc.publicnode.com",
     "base_sepolia": "https://base-sepolia-rpc.publicnode.com",
     "arbitrum_sepolia": "https://arbitrum-sepolia.gateway.tenderly.co",
-    "optimism_sepolia": "https://optimism-sepolia.drpc.org",
-    "taiko_hekla": "https://taiko-hekla-rpc.publicnode.com"
+    "optimism_sepolia": "https://optimism-sepolia-public.nodies.app",
+    "taiko_hekla": "https://taiko-hekla-rpc.publicnode.com",
+    "open_loot_testnet": "https://open-loot.rpc.testnet.syndicate.io"
 }

@@ -3,29 +3,40 @@
 pragma solidity ^0.8.29;
 
 import "lib/forge-std/src/StdJson.sol";
-import { OPFPaymasterV3 } from "src/PaymasterV3/OPFPaymasterV3.sol";
+import { OPFMain } from "src/7702AccV1/core/OPFMain.sol";
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
-contract DeployPaymasterV3 is Script {
-    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000000bae47fc9;
-    address owner = 0xA84E4F9D72cb37A8276090D3FC50895BD8E5Aaf1;
-    address manager = 0x25B10f9CAdF3f9F7d3d57921fab6Fdf64cC8C7f4;
+contract Deploy7702AccV1EPv9 is Script {
+    bytes32 constant salt = 0x000000000000000000000000000000000000000000000000000000017885423a;
+    address constant WEBAUTHN_VERIFIER = 0x00000256d7ef704c043cb352D7D6D3546A720A2e;
+    address constant ENTRY_POINT_V9 = 0x433709009B8330FDa32311DF1C2AFA402eD8D009;
+    address constant GAS_POLICY = 0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301;
+    uint256 constant RECOVERY_PERIOD = 2 days;
+    uint256 constant LOCK_PERIOD = 5 days;
+    uint256 constant SECURITY_PERIOD = 1.5 days;
+    uint256 constant SECURITY_WINDOW = 0.5 days;
     address private CREATE2_DEPLOYER = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
 
     function run() public {
-        string memory path = "src/PaymasterV3/bytecode.json";
+        string memory path = "src/7702AccV1/bytecode.json";
         string memory json = vm.readFile(path);
-        bytes memory bytecode = stdJson.readBytes(json, ".paymasterV3");
+        bytes memory bytecode = stdJson.readBytes(json, ".OPFMain");
 
         vm.startBroadcast();
-        address[] memory signers = new address[](1);
-        signers[0] = 0xb25fE9d3e04fD2403bB3c31c76a8F8dc59ac7832;
 
-        bytes memory constructorArgs = abi.encode(owner, manager, signers);
-        console.logBytes(constructorArgs);
+        bytes memory constructorArgs = abi.encode(
+            ENTRY_POINT_V9,
+            WEBAUTHN_VERIFIER,
+            RECOVERY_PERIOD,
+            LOCK_PERIOD,
+            SECURITY_PERIOD,
+            SECURITY_WINDOW,
+            GAS_POLICY
+        );
+        // console.logBytes(constructorArgs);
 
-        bytes memory creationCode = abi.encodePacked(type(OPFPaymasterV3).creationCode, constructorArgs);
-        // console.logBytes(creationCode);
+        bytes memory creationCode = abi.encodePacked(type(OPFMain).creationCode, constructorArgs);
+        console.logBytes(creationCode);
 
         address expectedAddress = vm.computeCreate2Address(salt, keccak256(creationCode), CREATE2_DEPLOYER);
 
@@ -53,11 +64,11 @@ contract DeployPaymasterV3 is Script {
 
         console.log("Deployment completed successfully!");
 
-        OPFPaymasterV3 pm = OPFPaymasterV3(payable(expectedAddress));
+        OPFMain pm = OPFMain(payable(expectedAddress));
 
-        require(owner == pm.OWNER(), "WrongOwner");
-        require(manager == pm.MANAGER(), "WrongManager");
-        require(pm.signers(signers[0]) == true, "WrongSigner");
+        // require(owner == pm.OWNER(), "WrongOwner");
+        // require(manager == pm.MANAGER(), "WrongManager");
+        // require(pm.signers(signers[0]) == true, "WrongSigner");
 
         vm.stopBroadcast();
     }

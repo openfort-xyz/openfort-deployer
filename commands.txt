@@ -1,12 +1,16 @@
-# ---------------------- Paymaster V3 ---------------------- #
-npx ts-node script/deploy-zero/index.ts OPFPaymasterV3 \
+# ---------------------- Paymaster V3 EPv8 ---------------------- #
+npx ts-node script/deploy-zero/index.ts OPFPaymasterV3EPv8 \
+  --open_loot \
+  --open_loot_testnet \
+  --optimism_sepolia \
   --sepolia \
   --base_sepolia \
   --clankermon
 
 npx ts-node script/deploy-zero/verify-multi.ts \
   --address 0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
-  --path src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3 \
+  --path src/PaymasterV3EPv8/OPFPaymasterV3.sol:OPFPaymasterV3 \
+  --optimism_sepolia \
   --sepolia \
   --base_sepolia \
   --constructor 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
@@ -18,11 +22,59 @@ forge verify-contract \
   --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
   --watch \
   0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
-  src/PaymasterV3/OPFPaymasterV3.sol:OPFPaymasterV3
-  # ---------------------- Paymaster V3 ---------------------- #
+  src/PaymasterV3EPv8/OPFPaymasterV3.sol:OPFPaymasterV3
 
-  # ---------------------- Gas Policy ---------------------- #
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
+  --watch \
+  0x8888FeEe400B4F959c07bf20d50ae4F5FF9AaAFA \
+  src/PaymasterV3EPv8/OPFPaymasterV3.sol:OPFPaymasterV3
+# ---------------------- Paymaster V3 EPv8 ---------------------- #
+
+# ---------------------- Paymaster V3 EPv9 ---------------------- #
+npx ts-node script/deploy-zero/index.ts OPFPaymasterV3EPv9 \
+  --open_loot \
+  --open_loot_testnet \
+  --optimism_sepolia \
+  --sepolia \
+  --base_sepolia \
+  --clankermon
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x9999feeee391be73f8be15398e7fbfdf5bef625d \
+  --path src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3 \
+  --optimism_sepolia \
+  --sepolia \
+  --base_sepolia \
+  --constructor 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
+  --watch \
+  0x9999feeee391be73f8be15398e7fbfdf5bef625d \
+  src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
+  --watch \
+  0x9999feeee391be73f8be15398e7fbfdf5bef625d \
+  src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3
+# ---------------------- Paymaster V3 EPv9 ---------------------- #
+
+# ---------------------- Gas Policy ---------------------- #
   npx ts-node script/deploy-zero/index.ts GasPolicy \
+  --open_loot \
+  --open_loot_testnet \
+  --optimism_sepolia \
   --sepolia \
   --base_sepolia \
   --clankermon
@@ -30,6 +82,7 @@ forge verify-contract \
 npx ts-node script/deploy-zero/verify-multi.ts \
   --address 0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
   --path src/Gas-Policy/GasPolicy.sol:GasPolicy \
+  --optimism_sepolia \
   --sepolia \
   --base_sepolia \
   --constructor 0x000000000000000000000000000000000000000000000000000000000001adb00000000000000000000000000000000000000000000000000000000000057e40000000000000000000000000000000000000000000000000000000000003a980000000000000000000000000000000000000000000000000000000000000ea60000000000000000000000000000000000000000000000000000000000000ea60
@@ -42,10 +95,22 @@ forge verify-contract \
   --watch \
   0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
   src/Gas-Policy/GasPolicy.sol:GasPolicy
-  # ---------------------- Gas Policy ---------------------- #
 
-  # ---------------------- WebAuthn Verifier ---------------------- #
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --constructor-args 0x000000000000000000000000000000000000000000000000000000000001adb00000000000000000000000000000000000000000000000000000000000057e40000000000000000000000000000000000000000000000000000000000003a980000000000000000000000000000000000000000000000000000000000000ea60000000000000000000000000000000000000000000000000000000000000ea60 \
+  --watch \
+  0x4337fEeEC9Af990cda9E99B4c1c480A2a9700301 \
+  src/Gas-Policy/GasPolicy.sol:GasPolicy
+# ---------------------- Gas Policy ---------------------- #
+
+# ---------------------- WebAuthn Verifier ---------------------- #
   npx ts-node script/deploy-zero/index.ts WebAuthnVerifier \
+  --open_loot \
+  --open_loot_testnet \
+  --optimism_sepolia \
   --sepolia \
   --base_sepolia \
   --clankermon
@@ -53,6 +118,7 @@ forge verify-contract \
 npx ts-node script/deploy-zero/verify-multi.ts \
   --address 0x00000256d7ef704c043cb352D7D6D3546A720A2e \
   --path src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier \
+  --optimism_sepolia \
   --sepolia \
   --base_sepolia 
 
@@ -63,15 +129,164 @@ forge verify-contract \
   --watch \
   0x00000256d7ef704c043cb352D7D6D3546A720A2e \
   src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier
-  # ---------------------- WebAuthn Verifier ---------------------- #
 
-  # ---------------------- P256 Verifier ---------------------- #
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --watch \
+  0x00000256d7ef704c043cb352D7D6D3546A720A2e \
+  src/WebAuthn-Verifier/WebAuthnVerifier.sol:WebAuthnVerifier
+# ---------------------- WebAuthn Verifier ---------------------- #
+
+# ---------------------- P256 Verifier ---------------------- #
   npx ts-node script/deploy-zero/index.ts P256Verifier \
+  --open_loot \
+  --open_loot_testnet \
+  --optimism_sepolia \
   --sepolia \
   --base_sepolia \
   --clankermon 
-  # ---------------------- P256 Verifier ---------------------- #
 
-  # ---------------------- Social Recovery Manager ---------------------- #
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --watch \
+  0x000000000000D01eA45F9eFD5c54f037Fa57Ea1a \
+  src/P256/P256Verifier.sol:P256Verifier
+# ---------------------- P256 Verifier ---------------------- #
 
-  # ---------------------- Social Recovery Manager ---------------------- #
+# ---------------------- 7702/acc V1 ---------------------- #
+npx ts-node script/deploy-zero/index.ts OPF7702v1 \
+  --open_loot \
+  --open_loot_testnet \
+  --optimism_sepolia \
+  --sepolia \
+  --base_sepolia \
+  --clankermon
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x7702000152F33A40E1Fd30C70E708f624113aa68 \
+  --path src/7702AccV1/core/OPFMain.sol:OPFMain \
+  --optimism_sepolia \
+  --sepolia \
+  --base_sepolia \
+  --constructor 0x0000000000000000000000004337084d9e255ff0702461cf8895ce9e3b5ff10800000000000000000000000000000256d7ef704c043cb352d7d6d3546a720a2e000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000069780000000000000000000000000000000000000000000000000000000000001fa40000000000000000000000000000000000000000000000000000000000000a8c00000000000000000000000004337feeec9af990cda9e99b4c1c480a2a9700301
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --constructor-args 0x0000000000000000000000004337084d9e255ff0702461cf8895ce9e3b5ff10800000000000000000000000000000256d7ef704c043cb352d7d6d3546a720a2e000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000069780000000000000000000000000000000000000000000000000000000000001fa40000000000000000000000000000000000000000000000000000000000000a8c00000000000000000000000004337feeec9af990cda9e99b4c1c480a2a9700301 \
+  --watch \
+  0x7702000152F33A40E1Fd30C70E708f624113aa68 \
+  src/7702AccV1/core/OPFMain.sol:OPFMain
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --constructor-args 0x0000000000000000000000004337084d9e255ff0702461cf8895ce9e3b5ff10800000000000000000000000000000256d7ef704c043cb352d7d6d3546a720a2e000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000069780000000000000000000000000000000000000000000000000000000000001fa40000000000000000000000000000000000000000000000000000000000000a8c00000000000000000000000004337feeec9af990cda9e99b4c1c480a2a9700301 \
+  --watch \
+  0x7702000152F33A40E1Fd30C70E708f624113aa68 \
+  src/7702AccV1/core/OPFMain.sol:OPFMain
+# ---------------------- 7702/acc V1 ---------------------- #
+
+# ---------------------- 7702/acc V1 EPV9 ---------------------- #
+npx ts-node script/deploy-zero/index.ts OPF7702v1EPv9 \
+  --open_loot \
+  --open_loot_testnet \
+  --optimism_sepolia \
+  --base_sepolia \
+  --sepolia \
+  --clankermon
+
+npx ts-node script/deploy-zero/verify-multi.ts \
+  --address 0x770201093028dff97683df845D6cDF731D01Ff15 \
+  --path src/7702AccV1/core/OPFMain.sol:OPFMain \
+  --optimism_sepolia \
+  --constructor 0x00000000000000000000000043370900c8de573db349bed8dd53b4ebd3cce70900000000000000000000000000000256d7ef704c043cb352d7d6d3546a720a2e000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000069780000000000000000000000000000000000000000000000000000000000001fa40000000000000000000000000000000000000000000000000000000000000a8c00000000000000000000000004337feeec9af990cda9e99b4c1c480a2a9700301
+
+forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --constructor-args 0x0000000000000000000000004337084d9e255ff0702461cf8895ce9e3b5ff10800000000000000000000000000000256d7ef704c043cb352d7d6d3546a720a2e000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000069780000000000000000000000000000000000000000000000000000000000001fa40000000000000000000000000000000000000000000000000000000000000a8c00000000000000000000000004337feeec9af990cda9e99b4c1c480a2a9700301 \
+  --watch \
+  0x770201093028dff97683df845D6cDF731D01Ff15 \
+  src/7702AccV1/core/OPFMain.sol:OPFMain
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --constructor-args 0x0000000000000000000000004337084d9e255ff0702461cf8895ce9e3b5ff10800000000000000000000000000000256d7ef704c043cb352d7d6d3546a720a2e000000000000000000000000000000000000000000000000000000000002a3000000000000000000000000000000000000000000000000000000000000069780000000000000000000000000000000000000000000000000000000000001fa40000000000000000000000000000000000000000000000000000000000000a8c00000000000000000000000004337feeec9af990cda9e99b4c1c480a2a9700301 \
+  --watch \
+  0x770201093028dff97683df845D6cDF731D01Ff15 \
+  src/7702AccV1/core/OPFMain.sol:OPFMain
+# ---------------------- 7702/acc V1 EPV9 ---------------------- #
+
+# ---------------------- Calibur EPV8 ---------------------- #
+  npx ts-node script/deploy-zero/index.ts CaliburEPv8 \
+  --open_loot \
+  --open_loot_testnet \
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --watch \
+  0x0000BAbe60E7FBa781bA312676f3d36781a88800 \
+  src/CaliburEPv8/CaliburEntry.sol:CaliburEntry
+# ---------------------- Calibur EPV8 ---------------------- #
+
+# ---------------------- Calibur EPV9 ---------------------- #
+  npx ts-node script/deploy-zero/index.ts CaliburEPv9 \
+  --open_loot \
+  --open_loot_testnet \
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --watch \
+  0x0909BaBE45c728dcaf1604f9cab2f04641C1093B \
+  src/CaliburEPv9/CaliburEntry.sol:CaliburEntry
+# ---------------------- Calibur EPV9 ---------------------- #
+
+# ---------------------- Account EPV9 ---------------------- #
+  npx ts-node script/deploy-zero/index.ts AccountEPv9 \
+  --open_loot_testnet \
+
+forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --watch \
+  0x000ACC097696Ea735c7EBb1857836EDA53646BC8 \
+  src/Factory-AccountEPv9/upgradeable/UpgradeableOpenfortProxy.sol:UpgradeableOpenfortProxy
+# ---------------------- Account EPV9 ---------------------- #
+
+
+forge script script/foundry/DeployRawEPv6.s.sol -vv --rpc-url https://open-loot.rpc.syndicate.io --account BURNER_KEY --broadcast \
+  && forge script script/foundry/DeployRawEPv8.s.sol -vv --rpc-url https://open-loot.rpc.syndicate.io --account BURNER_KEY --broadcast \
+  && forge script script/foundry/DeployRawEPv9.s.sol -vv --rpc-url https://open-loot.rpc.syndicate.io --account BURNER_KEY --broadcast 
+
+  forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --watch \
+  0x9999999955DAd4B613fc99ac4DdD264De488DFf2 \
+  lib/account-abstraction-v9/contracts/core/EntryPointSimulations.sol:EntryPointSimulations
+
+
+  forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --watch \
+  --constructor-args 0x0000000000000000000000005ff137d4b0fdcd49dca30c7cf57e578a026d27890000000000000000000000009590ed0c18190a310f4e93caccc4cc17270bed40 \
+  0x3210deD2e50363eF645C4eA15339Bec8Ac88e0F5 \
+  FlattenOpenfortPaymasterV2.sol:OpenfortPaymasterV2
