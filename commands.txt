@@ -272,3 +272,21 @@ forge verify-contract \
 forge script script/foundry/DeployRawEPv6.s.sol -vv --rpc-url https://open-loot.rpc.syndicate.io --account BURNER_KEY --broadcast \
   && forge script script/foundry/DeployRawEPv8.s.sol -vv --rpc-url https://open-loot.rpc.syndicate.io --account BURNER_KEY --broadcast \
   && forge script script/foundry/DeployRawEPv9.s.sol -vv --rpc-url https://open-loot.rpc.syndicate.io --account BURNER_KEY --broadcast 
+
+  forge verify-contract \
+  --rpc-url https://open-loot.rpc.syndicate.io \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.syndicate.io/api/' \
+  --watch \
+  0x9999999955DAd4B613fc99ac4DdD264De488DFf2 \
+  lib/account-abstraction-v9/contracts/core/EntryPointSimulations.sol:EntryPointSimulations
+
+
+  forge verify-contract \
+  --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
+  --verifier blockscout \
+  --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
+  --watch \
+  --constructor-args 0x0000000000000000000000005ff137d4b0fdcd49dca30c7cf57e578a026d27890000000000000000000000009590ed0c18190a310f4e93caccc4cc17270bed40 \
+  0x3210deD2e50363eF645C4eA15339Bec8Ac88e0F5 \
+  FlattenOpenfortPaymasterV2.sol:OpenfortPaymasterV2

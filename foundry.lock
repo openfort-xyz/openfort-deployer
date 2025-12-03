@@ -2,6 +2,12 @@
   "lib/account-abstraction": {
     "rev": "4cbc06072cdc19fd60f285c5997f4f7f57a588de"
   },
+  "lib/account-abstraction-v9": {
+    "branch": {
+      "name": "releases/v0.9",
+      "rev": "b36a1ed52ae00da6f8a4c8d50181e2877e4fa410"
+    }
+  },
   "lib/bls-keygen": {
     "rev": "53a46529ebab741a072b23093ba25f7eb5effbc5"
   },

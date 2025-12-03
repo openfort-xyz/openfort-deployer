@@ -28,3 +28,7 @@
 [submodule "lib/openzeppelin-contracts-upgradeable-v4-9-0"]
 	path = lib/openzeppelin-contracts-upgradeable-v4-9-0
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable
+[submodule "lib/account-abstraction-v9"]
+	path = lib/account-abstraction-v9
+	url = https://github.com/eth-infinitism/account-abstraction
+	branch = releases/v0.9
