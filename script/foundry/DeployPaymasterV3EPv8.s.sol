@@ -7,22 +7,18 @@ import { OPFPaymasterV3 } from "src/PaymasterV3EPv8/OPFPaymasterV3.sol";
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
 contract DeployPaymasterV3EPv8 is Script {
-    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000000bae47fc9;
-    address owner = 0xA84E4F9D72cb37A8276090D3FC50895BD8E5Aaf1;
-    address manager = 0x25B10f9CAdF3f9F7d3d57921fab6Fdf64cC8C7f4;
+    bytes32 constant salt = 0x000000000000000000000000000000000000000000000000000000032621a855;
+    address owner = 0xF2a00B9c1586b138eA5c62d94d31BC26C54F06D2;
+    address manager = 0x08269482D0f94111bDE8eF3EB2b5dAbC8eAEF296;
     address private CREATE2_DEPLOYER = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
 
     function run() public {
-        string memory path = "src/PaymasterV3/bytecode.json";
-        string memory json = vm.readFile(path);
-        bytes memory bytecode = stdJson.readBytes(json, ".paymasterV3");
-
         vm.startBroadcast();
         address[] memory signers = new address[](1);
         signers[0] = 0xb25fE9d3e04fD2403bB3c31c76a8F8dc59ac7832;
 
         bytes memory constructorArgs = abi.encode(owner, manager, signers);
-        console.logBytes(constructorArgs);
+        // console.logBytes(constructorArgs);
 
         bytes memory creationCode = abi.encodePacked(type(OPFPaymasterV3).creationCode, constructorArgs);
         // console.logBytes(creationCode);
