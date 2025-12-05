@@ -17,7 +17,7 @@ abstract contract BasePaymaster is ManagerAccessControl {
 
     address public immutable OWNER;
     address public MANAGER;
-    IEntryPoint public constant ENTRY_POINT_V9 = IEntryPoint(0x43370900c8de573dB349BEd8DD53b4Ebd3Cce709);
+    IEntryPoint public constant ENTRY_POINT_V9 = IEntryPoint(0x433709009B8330FDa32311DF1C2AFA402eD8D009);
 
     /*´:°•.°+.*•´.*:˚.°*.˚•´.°:°•.°•.*•´.*:˚.°*.˚•´.°:°•.°+.*•´.*:*/
     /*                        CONSTRUCTOR                         */
