@@ -6,7 +6,7 @@ import { CaliburEntry } from "src/CaliburEPv9/CaliburEntry.sol";
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
 contract DeployCaliburEPv9 is Script {
-    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000000fb853a37;
+    bytes32 constant salt = 0x0000000000000000000000000000000000000000000000000000000020522532;
     address private CREATE2_DEPLOYER = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
 
     function run() public {
@@ -14,7 +14,7 @@ contract DeployCaliburEPv9 is Script {
         vm.startBroadcast();
 
         bytes memory creationCode = abi.encodePacked(type(CaliburEntry).creationCode);
-        console.logBytes(creationCode);
+        // console.logBytes(creationCode);
 
         address expectedAddress = vm.computeCreate2Address(salt, keccak256(creationCode), CREATE2_DEPLOYER);
 
