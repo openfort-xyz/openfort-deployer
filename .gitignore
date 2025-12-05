@@ -12,3 +12,9 @@ docs/
 
 # Dotenv file
 .env
+openfort-3e7bf22f8c21.json
+
+.DS_Store
+.vscode/
+broadcast/
+node_modules

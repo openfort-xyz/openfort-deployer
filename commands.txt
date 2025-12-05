@@ -57,7 +57,7 @@ forge verify-contract \
   --verifier-url 'https://explorer.clankermon.com/api/' \
   --constructor-args 0x000000000000000000000000a84e4f9d72cb37a8276090d3fc50895bd8e5aaf100000000000000000000000025b10f9cadf3f9f7d3d57921fab6fdf64cc8c7f400000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b25fe9d3e04fd2403bb3c31c76a8f8dc59ac7832 \
   --watch \
-  0x9999feeee391be73f8be15398e7fbfdf5bef625d \
+  0x9999feeE50Fc515023F207b1c61aB3eA419e27d0 \
   src/PaymasterV3EPv9/OPFPaymasterV3.sol:OPFPaymasterV3
 
 forge verify-contract \
@@ -247,6 +247,14 @@ forge verify-contract \
   --open_loot_testnet \
 
 forge verify-contract \
+  --chain-id 510525 \
+  --verifier blockscout \
+  --verifier-url 'https://explorer.clankermon.com/api/' \
+  --watch \
+  0x0909bABe99b0A5f8C1fbfcD5E2510E6c15082c53 \
+  src/CaliburEPv9/CaliburEntry.sol:CaliburEntry
+
+forge verify-contract \
   --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
   --verifier blockscout \
   --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
@@ -297,3 +305,13 @@ forge script script/foundry/DeployPaymasterV3EPv8.s.sol -vv --rpc-url https://ba
   --etherscan-api-key QNAZY35DJPVNWFA9G1Y1ITGQ4H4YK8WB1J \
   --verifier etherscan \
   --verify
+
+
+  cast send 0x89644263310782351e5BDa21EaCF69cd84970B8a \
+  --value $(cast balance 0xA84E4F9D72cb37A8276090D3FC50895BD8E5Aaf1 --rpc-url https://rpc.clankermon.com) \
+  --account BURBER_KEY \
+  --rpc-url https://rpc.clankermon.com
+
+
+forge script script/foundry/DeployPaymasterV3EPv9.s.sol -vv --rpc-url https://rpc.clankermon.com --gcp --broadcast
+  
