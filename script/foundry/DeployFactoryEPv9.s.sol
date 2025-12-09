@@ -7,7 +7,7 @@ import { UpgradeableOpenfortFactory } from "src/Factory-AccountEPv9/upgradeable/
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
 contract DeployFactoryEPv9 is Script {
-    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000000b8d7c078;
+    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000001d532156e;
     uint256 private constant RECOVERY_PERIOD = 172800;
     uint256 private constant SECURITY_PERIOD = 129600;
     uint256 private constant SECURITY_WINDOW = 43200;
@@ -21,7 +21,8 @@ contract DeployFactoryEPv9 is Script {
     function run() public {
         vm.startBroadcast();
 
-        bytes memory constructorArgs = abi.encode(deployAddress, upgradeableOpenfortAccountImpl, RECOVERY_PERIOD, SECURITY_PERIOD, SECURITY_WINDOW, LOCK_PERIOD, guardianAddress);
+        bytes memory constructorArgs =
+            abi.encode(deployAddress, ENTRY_POINT_V9, upgradeableOpenfortAccountImpl, RECOVERY_PERIOD, SECURITY_PERIOD, SECURITY_WINDOW, LOCK_PERIOD, guardianAddress);
         // console.logBytes(constructorArgs);
 
         bytes memory creationCode = abi.encodePacked(type(UpgradeableOpenfortFactory).creationCode, constructorArgs);
