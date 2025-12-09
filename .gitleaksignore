@@ -1,1 +1,2 @@
 script/foundry/DeployPaymasterV3EPv9Async.Test.s.sol:ethereum-private-key-hex:10
+script/foundry/DeployAccountEPv9.s.sol:ethereum-private-key-hex:10

@@ -7,7 +7,7 @@ import { UpgradeableOpenfortAccount } from "src/Factory-AccountEPv9/upgradeable/
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
 contract DeployAccountEPv9 is Script {
-    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000001f7f5c3f0;
+    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000001f7f5c3f5;
     address private CREATE2_DEPLOYER = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
 
     function run() public {
@@ -46,9 +46,9 @@ contract DeployAccountEPv9 is Script {
     }
 }
 
-// forge script script/foundry/DeployPaymasterV3.s.sol \
+// forge script ./script/foundry/DeployAccountEPv9.s.sol \                                                                                                                                                                                                                                                                             18:02:53
 //   --account BURNER_KEY \
-//   --rpc-url https://base-rpc.publicnode.com \
+//   --rpc-url https://optimism-sepolia-public.nodies.app\
 //   -vvvv \
 //   --verify \
 //   --etherscan-api-key QNAZY35DJPVNWFA9G1Y1ITGQ4H4YK8WB1J \

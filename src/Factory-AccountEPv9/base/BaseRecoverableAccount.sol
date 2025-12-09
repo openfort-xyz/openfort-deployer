@@ -5,7 +5,7 @@ import {
     Ownable2StepUpgradeable,
     OwnableUpgradeable
 } from "lib/openzeppelin-contracts-upgradeable-v4-9-0/contracts/access/Ownable2StepUpgradeable.sol";
-import {Math} from "lib/openzeppelin-contracts-v4.9.0//contracts/utils/math/Math.sol";
+import {Math} from "lib/openzeppelin-contracts-v4.9.0/contracts/utils/math/Math.sol";
 import {BaseOpenfortAccount, IEntryPoint, ECDSAUpgradeable} from "../base/BaseOpenfortAccount.sol";
 
 /**
