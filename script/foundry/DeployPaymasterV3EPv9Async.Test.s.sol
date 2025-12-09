@@ -3,17 +3,28 @@
 pragma solidity ^0.8.29;
 
 import "lib/forge-std/src/StdJson.sol";
-import { UpgradeableOpenfortAccount } from "src/Factory-AccountEPv9/upgradeable/UpgradeableOpenfortAccount.sol";
+import { OPFPaymasterV3 } from "src/PaymasterV3EPv9Async/OPFPaymasterV3.sol";
 import { Script, console2 as console } from "lib/forge-std/src/Script.sol";
 
-contract DeployAccountEPv9 is Script {
-    bytes32 constant salt = 0x00000000000000000000000000000000000000000000000000000001f7f5c3f5;
+contract DeployPaymasterV3EPv9AsyncTest is Script {
+    bytes32 constant salt = 0x000000000000000000000000000000000000000000000000000000031b7dd1f4;
+    address owner = 0xA84E4F9D72cb37A8276090D3FC50895BD8E5Aaf1;
+    address manager = 0xd0c4637b0Fac10cba161907D9b6A1135241DeC91;
     address private CREATE2_DEPLOYER = 0x4e59b44847b379578588920cA78FbF26c0B4956C;
 
     function run() public {
-        vm.startBroadcast();
+        string memory path = "src/PaymasterV3EPv8/bytecode.json";
+        string memory json = vm.readFile(path);
+        bytes memory bytecode = stdJson.readBytes(json, ".paymasterV3");
 
-        bytes memory creationCode = abi.encodePacked(type(UpgradeableOpenfortAccount).creationCode);
+        vm.startBroadcast();
+        address[] memory signers = new address[](1);
+        signers[0] = 0x50Eb929D025E9b9d2c29CA1849D9673275DB91f5;
+
+        bytes memory constructorArgs = abi.encode(owner, manager, signers);
+        // console.logBytes(constructorArgs);
+
+        bytes memory creationCode = abi.encodePacked(type(OPFPaymasterV3).creationCode, constructorArgs);
         console.logBytes(creationCode);
 
         address expectedAddress = vm.computeCreate2Address(salt, keccak256(creationCode), CREATE2_DEPLOYER);
@@ -42,23 +53,21 @@ contract DeployAccountEPv9 is Script {
 
         console.log("Deployment completed successfully!");
 
+        OPFPaymasterV3 pm = OPFPaymasterV3(payable(expectedAddress));
+
+        require(owner == pm.OWNER(), "WrongOwner");
+        require(manager == pm.MANAGER(), "WrongManager");
+        require(pm.signers(signers[0]) == true, "WrongSigner");
+
         vm.stopBroadcast();
     }
 }
 
-// forge script ./script/foundry/DeployAccountEPv9.s.sol \                                                                                                                                                                                                                                                                             18:02:53
+// forge script script/foundry/DeployPaymasterV3EPv9AsyncTest \
 //   --account BURNER_KEY \
-//   --rpc-url https://optimism-sepolia-public.nodies.app\
+//   --rpc-url https://optimism-sepolia-public.nodies.app \
 //   -vvvv \
 //   --verify \
 //   --etherscan-api-key QNAZY35DJPVNWFA9G1Y1ITGQ4H4YK8WB1J \
 //   --verifier etherscan \
-//   --broadcast
-
-// forge script script/foundry/DeployAccountEPv9.s.sol \
-//   --account BURNER_KEY \
-//   --rpc-url https://open-loot.rpc.testnet.syndicate.io/ \
-//   -vvvv \
-//   --verifier blockscout \
-//   --verifier-url 'https://open-loot.explorer.testnet.syndicate.io/api/' \
 //   --broadcast
